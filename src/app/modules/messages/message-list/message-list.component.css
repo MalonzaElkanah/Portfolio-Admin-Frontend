@@ -1,0 +1,11 @@
+.scrollarea {
+  overflow-y: auto;
+}
+
+.fw-semibold { font-weight: 600; }
+.lh-tight { line-height: 1.25; }
+
+
+.chat-content {
+  height: 300px;
+}

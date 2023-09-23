@@ -1,0 +1,27 @@
+
+<!--form *ngFor="let social of socialLinkForm.controls; let i = index" [formGroup]="getSocialLinkFormRecord(i)" class="row social-cont"-->
+                            
+
+    <div class="row social-cont">
+        <div class="col-10">
+            <div class="row">
+            <div class="form-group col-md-6">
+                <label>Name</label>
+                <input type="text" class="form-control" name="name" required="">
+            </div>
+            <div class="form-group col-md-6">
+                <label>FA Logo</label>
+                <input type="text" class="form-control" name="logo" required="">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Url</label>
+                <input type="text" class="form-control" name="url" required="">
+            </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-2">
+            <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+            <a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
+        </div>
+    </div>
+

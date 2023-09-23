@@ -1,0 +1,89 @@
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+	            <div class="col-12">
+	                <div class="card">
+		                <div class="card-header">
+		                    <h4>My Services</h4>
+		                    <div class="card-header-action">
+                              	<a href="#" class="btn btn-primary">
+	                                <i class="fas fa-plus"></i>
+	                                Add Service
+	                            </a>
+	                        </div>
+		                </div>
+	                  	<div class="card-body">
+		                    <div class="table-responsive">
+			                    <table datatable [dtOptions]="dtOptions" class="table table-striped" id="table-2">
+			                        <thead>
+				                        <tr>
+				                            <th class="text-center">#</th>
+				                            <th>Name</th>
+				                            <th>Logo</th>
+				                            <th>Description</th>
+				                            <th>Action</th>
+                                            <th></th>
+				                        </tr>
+			                        </thead>
+			                        <tbody>
+				                        <tr>
+				                            <td class="text-center">1</td>
+				                            <td>API Development</td>
+				                            <td class="align-middle">fas fa-drafting-compass</td>
+				                            <td>Using API development best practice like versioning, security and throttling, I develop APIs for mobile app, IOT devices and web apps.</td>
+				                            <td>
+				                            	<a href="#" class="btn btn-primary">Edit</a>
+				                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteServiceModal">Delete</a>
+                                            </td>
+				                        </tr>
+
+				                        <tr>
+				                            <td class="text-center">2</td>
+				                            <td>Computer Scripting</td>
+				                            <td class="align-middle">fas fa-drafting-compass</td>
+				                            <td>I create programs to make work easier and desirable by write computer scripts to automates the execution of varies tasks, tweak applications and OS. </td>
+				                            <td>
+				                            	<a href="#" class="btn btn-primary">Edit</a>
+				                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteServiceModal">Delete</a>
+                                            </td>
+				                        </tr>
+
+
+
+                        			</tbody>
+                      			</table>
+                    		</div>
+                  		</div>
+                	</div>
+              	</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!--delete Project Modal
+        <div class="modal fade" id="deleteServiceModal#" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Delete Computer Scripting</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    ARE YOU SURE?
+                  </div>
+                  <div class="modal-footer bg-whitesmoke br">
+                    <a href="#" class="btn btn-danger deleteModal">Delete</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+ -->

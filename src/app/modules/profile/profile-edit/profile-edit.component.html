@@ -1,0 +1,127 @@
+<section class="section mt-4">
+    <div class="section-body">
+
+    <!-- Edit/Add Profile Form Body  -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center"><h4>UPDATE PROFILE</h4></div>
+                    <div class="card-body">
+                        <form class="my-3 mx-2" [formGroup]="profileForm" (submit)="submitProfileForm()">
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <div class="row">
+                                        <div class="col-3 profile-img">
+                                            <img src="{{profile.image}}" class="img-thumbnail" alt="User Image">
+                                        </div>
+                                        <div class="col-9 upload-img">
+                                            <div class="change-photo-btn">
+                                                <span ><i class="fa fa-upload"></i> Change Photo</span>
+                                                <input type="file" class="upload" formControlName="image" >
+                                            </div>
+                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                                        </div>
+                                    </div>
+                                </div>             
+                            
+                                <div class="form-group col-md-6 my-2">
+                                    <label>CV File</label>
+                                    <input type="file" class="form-control" formControlName="cv_file">
+                                    <div id="cv_fileHelp" class="form-text">Current File: <a href="#">#</a></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6  my-2">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" formControlName="first_name" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.first_name">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Second Name</label>
+                                    <input type="text" class="form-control" formControlName="second_name" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.second_name">{{error}}, </span></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Phone 1</label>
+                                    <input type="text" class="form-control" formControlName="phone_number_1" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.phone_number_1">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Phone 2</label>
+                                     <input type="text" class="form-control" formControlName="phone_number_2" required>
+                                     <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.phone_number_2">{{error}}, </span></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Email 1</label>
+                                    <input type="text" class="form-control" formControlName="email_1" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.email_1">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Email 2</label>
+                                    <input type="text" class="form-control" formControlName="email_2" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.email_2">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" formControlName="address" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.address">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Description</label>
+                                    <textarea class="form-control" formControlName="description" required></textarea>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.description">{{error}}, </span></div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-4 pb-2">
+                                <h4 class="text-center">Social LInks</h4>
+                            </div>
+                            <form *ngFor="let social of socialLinkForm.controls; let i = index" [formGroup]="getSocialLinkFormRecord(i)" class="row social-cont">
+                                <div class="col-10">
+                                    <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" formControlName="name" required="">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>FA Logo</label>
+                                        <input type="text" class="form-control" formControlName="logo"  required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Url</label>
+                                        <input type="text" class="form-control" formControlName="url" required="">
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+                                    <a href="javascript:void(0);" (click)="deleteSocialLinkFormRecord(i)" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
+                                </div>
+                            </form>
+                            <div class="social-info">
+                            </div>
+                            <div class="add-more text-center mt-3">
+                                <a href="javascript:void(0);" class="add-social" (click)="addSocialLinkFormRecord()"><i class="fa fa-plus-circle"></i> Add Social Link</a>
+                            </div>
+
+                            <div class="form-row pt-4">
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Edit/Add Profile Form Body  -->
+	</div>
+</section>
