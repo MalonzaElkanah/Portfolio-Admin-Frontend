@@ -5,10 +5,12 @@ import { EducationUpdateComponent } from './education-update/education-update.co
 import { EducationCreateComponent } from './education-create/education-create.component';
 import { EducationListComponent } from './education-list/education-list.component';
 
+import { educationResolver } from './education.resolver';
+
 const routes: Routes = [
-  { path: 'education', component: EducationListComponent },
-  { path: 'education/update', component: EducationUpdateComponent },
-  { path: 'education/create', component: EducationCreateComponent }
+  { path: '', component: EducationListComponent },
+  { path: 'update/:slug/:id', component: EducationUpdateComponent, resolve: { education: educationResolver } },
+  { path: 'create', component: EducationCreateComponent }
 ];
 
 @NgModule({

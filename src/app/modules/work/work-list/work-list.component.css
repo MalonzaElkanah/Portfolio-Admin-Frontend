@@ -1,0 +1,71 @@
+.activities{
+	display:flex;
+	flex-wrap:wrap;
+}
+.activities .activity{
+	width:100%;display:flex;position:relative;
+}
+.activities .activity:before{
+	content:" ";
+	position:absolute;
+	left:25px;
+	top:0;
+	width:2px;
+	height:100%;
+	background-color:#6777ef;
+}
+.activities .activity:last-child:before{
+	display:none;
+}
+.activities .activity .activity-icon{
+	width:50px;
+	height:50px;
+	border-radius:3px;
+	line-height:50px;
+	font-size:20px;
+	text-align:center;
+	margin-right:20px;
+	border-radius:50%;
+	flex-shrink:0;
+	text-align:center;
+	z-index:1;
+}
+.activities .activity .activity-detail{
+	background-color:#fff;
+	border-radius:10px;
+	border:none;
+	position:relative;
+	margin-bottom:30px;
+	box-shadow:0 0.46875rem 2.1875rem rgba(90,97,105,0.1),0 0.9375rem 1.40625rem rgba(90,97,105,0.1),0 0.25rem 0.53125rem rgba(90,97,105,0.12),0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+	position:relative;
+	padding:15px;
+}
+.activities .activity .activity-detail:before{
+	content:"\f0d9";
+	font-family:"Font Awesome 5 Free";
+	font-weight:900;
+	font-size:20px;
+	position:absolute;
+	left:-8px;color:#fff
+}
+.activities .activity .activity-detail h4{
+	font-size:18px;
+	color:#191d21;
+}
+.activities .activity .activity-detail p{
+	margin-bottom:0;
+}
+
+.bullet{
+	margin:0 10px;
+}
+
+.profile-widget .profile-widget-description{
+	padding:20px;
+	line-height:26px;
+}
+.profile-widget .profile-widget-description .profile-widget-name{
+	font-size:16px;
+	margin-bottom:10px;
+	font-weight:600;
+}

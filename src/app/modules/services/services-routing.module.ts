@@ -5,10 +5,12 @@ import { ServiceUpdateComponent } from './service-update/service-update.componen
 import { ServiceCreateComponent } from './service-create/service-create.component';
 import { ServiceListComponent } from './service-list/service-list.component';
 
+import { servicesResolver } from './services.resolver'
+
 const routes: Routes = [
-  { path: "services", component: ServiceListComponent },
-  { path: "services/update", component: ServiceUpdateComponent },
-  { path: "services/add", component: ServiceCreateComponent }
+  { path: "", component: ServiceListComponent },
+  { path: "update/:slug/:id", component: ServiceUpdateComponent, resolve: { service: servicesResolver } },
+  { path: "add", component: ServiceCreateComponent }
 ];
 
 @NgModule({

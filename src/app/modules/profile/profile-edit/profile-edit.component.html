@@ -17,8 +17,10 @@
                                         <div class="col-9 upload-img">
                                             <div class="change-photo-btn">
                                                 <span ><i class="fa fa-upload"></i> Change Photo</span>
-                                                <input type="file" class="upload" formControlName="image" >
+                                                <input type="file" class="upload" formControlName="image" (change)="uploadImage($event)">
                                             </div>
+                                            <div class="form-text">{{profileUpload}}</div>
+                                            <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.image">{{error}}, </span></div>
                                             <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                                         </div>
                                     </div>
@@ -26,8 +28,10 @@
                             
                                 <div class="form-group col-md-6 my-2">
                                     <label>CV File</label>
-                                    <input type="file" class="form-control" formControlName="cv_file">
-                                    <div id="cv_fileHelp" class="form-text">Current File: <a href="#">#</a></div>
+                                    <input type="file" class="form-control" formControlName="cv_file" (change)="uploadCV($event)">
+                                    <div id="cv_fileHelp" class="form-text">Current File: <a href="{{profile.cv_file}}">{{profile.cv_file}}</a></div>
+                                    <div class="form-text">{{cvUpload}}</div>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of profileError.cv_file">{{error}}, </span></div>
                                 </div>
                             </div>
 

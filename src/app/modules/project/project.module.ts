@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgSelectModule } from '@ng-select/ng-select';
 import { DataTablesModule } from 'angular-datatables';
+import { NgxSummernoteModule } from 'ngx-summernote';
+
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
@@ -20,6 +24,9 @@ import { ProjectViewComponent } from './project-view/project-view.component';
   imports: [
     CommonModule,
     DataTablesModule,
+    NgxSummernoteModule,
+    NgSelectModule,
+    ReactiveFormsModule,
     ProjectRoutingModule
   ]
 })

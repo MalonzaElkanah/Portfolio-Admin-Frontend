@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgSelectModule } from '@ng-select/ng-select';
 import { DataTablesModule } from 'angular-datatables';
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 import { BlogRoutingModule } from './blog-routing.module';
 import { ArticleCreateComponent } from './article-create/article-create.component';
@@ -19,6 +22,9 @@ import { CommentsComponent } from './comments/comments.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    NgxSummernoteModule,
+    NgSelectModule,
     DataTablesModule,
     BlogRoutingModule
   ]

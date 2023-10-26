@@ -1,0 +1,49 @@
+<div class="card my-3">
+    <div class="card-header">
+        <h4>Technical Skills Proficiency</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="table-1">
+                <thead>
+                    <tr>
+                        <th class="text-center pt-3">#</th>
+                        <th>Skill</th>
+                        <th>Proficiency(%)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	
+                	<tr *ngFor="let skill of techSkillForm.controls; let i = index" [formGroup]="getTechSkillFormRecord(i)">
+                        <td class="text-center pt-2">{{i+1}}</td>
+                        <td class="align-middle">
+	                        <select class="form-control" formControlName="skill_keyword">
+                          		<option *ngFor="let keyword of skillKeywords" value="{{keyword.id}}">{{keyword.name}}</option>
+                          	</select>
+                        </td>
+                        <td>
+                        	<input type="number" formControlName="percentage" class="form-control">
+                        </td>
+                        <td>
+                        	<a href="javascript:void();" (click)="removeTechSkill(i)" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    
+    			</tbody>
+  			</table>
+		</div>
+		<div class="row my-2">
+			<div class="col text-center">
+				<a href="javascript:void();" (click)="addTechSkillFormRecord()">Add More</a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<button type="button" (click)="submitTechForm()" class="btn btn-primary m-1">UPDATE SKILL</button>
+			</div>
+		</div>
+	</div>
+</div>
+

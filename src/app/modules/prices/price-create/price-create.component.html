@@ -1,125 +1,79 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
 
-    <!-- Edit/Add Profile Form Body  -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header text-center"><h4>NEW PRICING</h4></div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <form method="post" action="#">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" name="name" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Price</label>
-                                            <input type="text" class="form-control" name="price" value="" required>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-10">
-                                            <label>Description</label>
-                                            <textarea class="form-control" name="description"></textarea>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="edit-keyword-info">
-                                        <div class="row form-row keyword-cont">
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label>Keywords</label>
-                                                    <input type="text" class="form-control" name="name" value="" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <select class="form-control" name="status">
-                                                        <option value="active">Active</option>
-                                                        <option value="not_active">Not Active</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-2">
-                                                <label class="d-md-block d-sm-none d-none">&nbsp;</label>
-                                                <a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="keyword-info">
-                                        <div class="row form-row keyword-cont">
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label>Keyword</label>
-                                                    <input type="text" class="form-control" name="name_1" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <select class="form-control" name="status_1">
-                                                        <option value="active">Active</option>
-                                                        <option value="not_active">Not Active</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-2">
-                                                <label class="d-md-block d-sm-none d-none">&nbsp;</label>
-                                                <a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="add-more">
-                                        <a href="javascript:void(0);" class="add-keyword"><i class="fa fa-plus-circle"></i> Add More</a>
-                                    </div>
+                        <form class="my-3 mx-2" [formGroup]="pricingForm" (submit)="submitPriceForm()">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" formControlName="name">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of pricingError.name">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Price</label>
+                                    <input type="text" class="form-control" formControlName="price">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of pricingError.price">{{error}}, </span></div>
+                                </div>
+                            </div>
 
-                                    <div class="form-row py-4">
-                                        <div>
-                                            <button type="submit" class="btn btn-primary">Add Work</button>
-                                        </div>
-                                        <div class="px-4">
-                                        <a href="#" class="btn btn-danger px-4" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <label>Description</label>
+                                    <textarea class="form-control" formControlName="description"></textarea>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of pricingError.description">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            
+                            <div class="edit-keyword-info mt-4">
+                                <div class="row">
+                                    <h4>Price Keywords</h4>
+                                </div>
+
+                                <form *ngFor="let keyword of keywordForm.controls; let i = index" [formGroup]="getKeywordFormRecord(i)" class="row form-row keyword-cont">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Keywords</label>
+                                            <input type="text" class="form-control" formControlName="name">
                                         </div>
                                     </div>
-
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status">
+                                                <option value="active">Active</option>
+                                                <option value="not_active">Not Active</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-2">
+                                        <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+                                        <a (click)="deleteKeywordFormRecord(i)" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
+                                    </div>
                                 </form>
                             </div>
-                        </div>
+                            
+                            <div class="add-more text-center my-3">
+                                <a href="javascript:void(0);" (click)="addKeywordFormRecord()" class="add-keyword"><i class="fa fa-plus-circle"></i> Add More</a>
+                            </div>
+
+                            <div class="row py-4">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary mx-2">Add Pricing</button>
+                                </div>
+                            </div>
+
+                        </form>
+
 
                     </div>
                 </div>
             </div>
         </div>
-    <!-- /Add Letter Form Body  -->
 
     </div>
 </section>
-
-
-
-    <!--div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Delete Pricing</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                ARE YOU SURE?
-              </div>
-              <div class="modal-footer bg-whitesmoke br">
-                <a href="#" class="btn btn-danger deleteModal">Delete</a>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-        </div>
-    </div-->
-

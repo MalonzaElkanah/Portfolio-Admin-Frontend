@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { DataTablesModule } from 'angular-datatables';
 
@@ -18,6 +19,7 @@ import { ServiceListComponent } from './service-list/service-list.component';
   imports: [
     CommonModule,
     DataTablesModule,
+    ReactiveFormsModule,
     ServicesRoutingModule
   ]
 })

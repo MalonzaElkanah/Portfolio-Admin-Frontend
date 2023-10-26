@@ -6,11 +6,13 @@ import { ProjectAddComponent } from './project-add/project-add.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectViewComponent } from './project-view/project-view.component';
 
+import { projectResolver } from './project.resolver';
+
 const routes: Routes = [
-  { path: 'projects', component: ProjectListComponent },
-  { path: 'projects/view', component: ProjectViewComponent },
-  { path: 'projects/add', component: ProjectAddComponent },
-  { path: 'projects/edit', component: ProjectEditComponent }
+  { path: '', component: ProjectListComponent },
+  { path: 'view/:slug/:id', component: ProjectViewComponent, resolve: { project: projectResolver} },
+  { path: 'add', component: ProjectAddComponent },
+  { path: 'edit/:slug/:id', component: ProjectEditComponent, resolve: { project: projectResolver} }
 ];
 
 @NgModule({

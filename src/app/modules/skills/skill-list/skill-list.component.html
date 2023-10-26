@@ -1,94 +1,44 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
 
         <div class="row">
           	<div class="col-12">
-            	<div class="card">
+            	<div class="card my-3">
 	                <div class="card-header">
-	                    <h4>My Skills</h4>
-	                    <div class="card-header-action">
-                          	<a href="#" class="btn btn-primary">
-                                <i class="fas fa-plus"></i>
-                                Add Skill
-                             </a>
+	                	<div class="row">
+		                    <div class="col-md-10 col-sm-9 h4">My Skills</div>
+		                    <div class="col-md-2 col-sm-3">
+	                          	<a routerLink="create" class="btn btn-primary">
+	                                <i class="fas fa-plus"></i>
+	                                Add Skill
+	                             </a>
+	                        </div>
                         </div>
 	                </div>
 	                <div class="card-body">
 	                    <div class="table-responsive">
-			                <table datatable [dtOptions]="dtOptions" class="table table-striped" id="table-2">
+			                <table class="table table-striped" id="table-2">
 			                    <thead>
 			                        <tr>
-			                            <th class="text-center pt-3">
-				                            <div class="custom-checkbox custom-checkbox-table custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-				                                <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </th>
+			                            <th class="text-center pt-3">#</th>
 			                            <th>Skill</th>
 			                            <th>Sub-Skill</th>
 			                            <th>Action</th>
-			                            <th></th>
 			                        </tr>
 			                    </thead>
 		                        <tbody>
-				                    <tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-				                        <td>Backend</td>
+				                    <tr *ngFor="let skill of skills?.results; let i = index">
+			                            <td class="text-center pt-2">{{i+1}}</td>
+				                        <td>{{skill.name}}</td>
 				                        <td class="align-middle">
-
-		                              		<div class="badge badge-info badge-shadow">	Python</div>
-		                              		<div class="badge badge-info badge-shadow">Django</div>
-		                              		<div class="badge badge-info badge-shadow">Flask</div>
-		                              		<div class="badge badge-info badge-shadow">php</div>
-		                              		<div class="badge badge-info badge-shadow">SQL</div>
-		                              		<div class="badge badge-info badge-shadow">Django Rest Framework</div>
-		                              		<div class="badge badge-info badge-shadow">NoSQL</div>
-		                              		<div class="badge badge-info badge-shadow">FastAPI</div>
-
+		                              		<div *ngFor="let keyword of skill.keywords" class="badge bg-primary m-1 badge-shadow">{{keyword.name}}</div>
 				                        </td>
 
 				                        <td>
-				                        	<a href="#" class="btn btn-warning">Edit</a>
-				                        </td>
-				                        <td>
-				                        	<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteSkillModal">Delete</a>
+				                        	<a href="javascript:void();" [routerLink]="['update', slugify(skill.name), binarify(skill?.id ?? 0)]" class="btn btn-outline-primary m-1" >Update</a>
+				                        	<a href="javascript:void();" (click)="removeSkill(skill)" class="btn btn-danger m-1" >Delete</a>
 				                        </td>
 				                    </tr>
-				                    <tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-				                        <td>Backend</td>
-				                        <td class="align-middle">
-
-		                              		<div class="badge badge-info badge-shadow">	Python</div>
-		                              		<div class="badge badge-info badge-shadow">Django</div>
-		                              		<div class="badge badge-info badge-shadow">Flask</div>
-		                              		<div class="badge badge-info badge-shadow">php</div>
-		                              		<div class="badge badge-info badge-shadow">SQL</div>
-		                              		<div class="badge badge-info badge-shadow">Django Rest Framework</div>
-		                              		<div class="badge badge-info badge-shadow">NoSQL</div>
-		                              		<div class="badge badge-info badge-shadow">FastAPI</div>
-
-				                        </td>
-
-				                        <td>
-				                        	<a href="#" class="btn btn-warning">Edit</a>
-				                        </td>
-				                        <td>
-				                        	<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteSkillModal">Delete</a>
-				                        </td>
-				                    </tr>
-
-
 				                
                     			</tbody>
                   			</table>
@@ -100,204 +50,14 @@
 
         <div class="row">
           	<div class="col-12">
-            	<div class="card">
-	                <div class="card-header">
-	                    <h4>Technical Skills Proficiency</h4>
-	                </div>
-	                <div class="card-body">
-	                    <div class="table-responsive">
-			                <table datatable [dtOptions]="dtOptions" class="table table-striped" id="table-1">
-			                    <thead>
-			                        <tr>
-			                            <th class="text-center pt-3">
-				                            <div class="custom-checkbox custom-checkbox-table custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-				                                <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </th>
-			                            <th>Skill</th>
-			                            <th>Proficiency(%)</th>
-			                            <th>Action</th>
-			                            <th></th>
-			                        </tr>
-			                    </thead>
-		                        <tbody>
-		                        	<form method="post" action="#">
-		                        	<tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-			                            <td class="align-middle">
-					                        <select class="form-control" name="skill_keyword">
-			                              		<option value="1" selected="">SQL</option>
-			                              		<option value="1" selected="">Php</option>
-			                              		<option value="1" selected="">Python</option>
-			                              		<option value="2">Javascript</option>
-			                              	</select>
-				                        </td>
-				                        <td>
-				                        	<input type="number" name="percentage" class="form-control" value="90">
-				                        </td>
-				                        <td>
-				                        	<button type="submit" class="btn btn-primary">Update</button>
-				                        </td>
-				                        <td>
-				                        	<a href="#" class="btn btn-danger">Delete</a>
-				                        </td>
-				                    </tr>
-				                    </form>
-		                        	<form method="post" action="#">
-		                        	<tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-			                            <td class="align-middle">
-					                        <select class="form-control" name="skill_keyword">
-			                              		<option value="1" selected="">SQL</option>
-			                              		<option value="1" selected="">Php</option>
-			                              		<option value="1" selected="">Python</option>
-			                              		<option value="2">Javascript</option>
-			                              	</select>
-				                        </td>
-				                        <td>
-				                        	<input type="number" name="percentage" class="form-control" value="90">
-				                        </td>
-				                        <td>
-				                        	<button type="submit" class="btn btn-primary">Update</button>
-				                        </td>
-				                        <td>
-				                        	<a href="#" class="btn btn-danger">Delete</a>
-				                        </td>
-				                    </tr>
-				                    </form>
-				                	<form method="post" action="#">
-				                    <tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-			                            <td class="align-middle">
-					                        <select class="form-control" name="skill_keyword">
-			                              		<option value="1" selected="">SQL</option>
-			                              		<option value="1" selected="">Php</option>
-			                              		<option value="1" selected="">Python</option>
-			                              		<option value="2">Javascript</option>
-			                              	</select>
-				                        </td>
-				                        <td> <input type="number" name="percentage" class="form-control"> </td>
-				                        <td colspan="2">
-				                        	<button type="submit" class="btn btn-primary">ADD</button>
-				                        </td>
-				                    </tr>
-				                    </form>
-                    			</tbody>
-                  			</table>
-                		</div>
-              		</div>
-            	</div>
+            	<app-tech-skills [skillKeywords]="skillKeywords"></app-tech-skills>
           	</div>
         </div>
 
         <div class="row">
           	<div class="col-12">
-            	<div class="card">
-	                <div class="card-header">
-	                    <h4>Professional Skills Proficiency</h4>
-	                </div>
-	                <div class="card-body">
-	                    <div class="table-responsive">
-			                <table datatable [dtOptions]="dtOptions" class="table table-striped" id="table-3">
-			                    <thead>
-			                        <tr>
-			                            <th class="text-center pt-3">
-				                            <div class="custom-checkbox custom-checkbox-table custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-				                                <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </th>
-			                            <th>Skill</th>
-			                            <th>Proficiency(%)</th>
-			                            <th>Action</th>
-			                            <th></th>
-			                        </tr>
-			                    </thead>
-		                        <tbody>
-		                        	<form method="post" action="#">
-		                        	<tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-			                            <td class="align-middle">
-					                        <input type="text" name="name" class="form-control" value="Communication">
-				                        </td>
-				                        <td>
-				                        	<input type="number" name="percentage" class="form-control" value="90">
-				                        </td>
-				                        <td>
-				                        	<button type="submit" class="btn btn-primary">Update</button>
-				                        </td>
-				                        <td>
-				                        	<a href="#" class="btn btn-danger">Delete</a>
-				                        </td>
-				                    </tr>
-				                    </form>
-		                        	<form method="post" action="#">
-		                        	<tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-			                            <td class="align-middle">
-					                        <input type="text" name="name" class="form-control" value="Team Work">
-				                        </td>
-				                        <td>
-				                        	<input type="number" name="percentage" class="form-control" value="90">
-				                        </td>
-				                        <td>
-				                        	<button type="submit" class="btn btn-primary">Update</button>
-				                        </td>
-				                        <td>
-				                        	<a href="#" class="btn btn-danger">Delete</a>
-				                        </td>
-				                    </tr>
-				                    </form>
+          		<app-prof-skills></app-prof-skills>
 
-
-				                	<form method="post" action="#">
-				                    <tr>
-			                            <td class="text-center pt-2">
-				                            <div class="custom-checkbox custom-control">
-				                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-				                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-				                            </div>
-			                            </td>
-			                            <td class="align-middle">
-					                        <input type="text" name="name" class="form-control">
-				                        </td>
-				                        <td> <input type="number" name="percentage" class="form-control"> </td>
-				                        <td colspan="2">
-				                        	<button type="submit" class="btn btn-primary">ADD</button>
-				                        </td>
-				                    </tr>
-				                    </form>
-                    			</tbody>
-                  			</table>
-                		</div>
-              		</div>
-            	</div>
           	</div>
         </div>
 

@@ -1,94 +1,86 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
 
-    <!-- Edit/Add Profile Form Body  -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header text-center"><h4>UPDATE WORK</h4></div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <form method="post" action="#">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Company</label>
-                                            <input type="text" class="form-control" name="company" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Position</label>
-                                            <input type="text" class="form-control" name="position" value="" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Location</label>
-                                            <input type="text" class="form-control" name="location" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Website</label>
-                                            <input type="text" class="form-control" name="website" value="" required>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Start Date</label>
-                                            <input type="text" class="form-control" name="start_date" placeholder="YYYY-MM-DD" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>End Date</label>
-                                             <input type="text" class="form-control" name="end_date" value="" required>
-                                        </div>
-                                    </div>
+                        <form  class="my-3 mx-2" [formGroup]="workForm" (submit)="submitWorkForm()">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Company</label>
+                                    <input type="text" class="form-control" formControlName="company">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of workError.company">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Position</label>
+                                    <input type="text" class="form-control" formControlName="position" >
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of workError.position">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Location</label>
+                                    <input type="text" class="form-control" formControlName="location" >
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of workError.location">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Website</label>
+                                    <input type="text" class="form-control" formControlName="website">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of workError.website">{{error}}, </span></div>
+                                </div>
+                            </div>
 
-
-                                    <div class="edit-highlight-info">
-                                        <div class="row form-row highlight-cont">
-                                            <div class="col-10">
-                                                <div class="form-group">
-                                                    <label>Highlight</label>
-                                                    <input type="text" class="form-control" name="name" value="" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-2">
-                                                <label class="d-md-block d-sm-none d-none">&nbsp;</label>
-                                                <a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Start Date</label>
+                                    <input type="text" class="form-control" formControlName="start_date" placeholder="YYYY-MM-DD">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of workError.start_date">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>End Date</label>
+                                     <input type="text" class="form-control" formControlName="end_date" placeholder="YYYY-MM-DD">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of workError.end_date">{{error}}, </span></div>
+                                </div>
+                            </div>
 
 
-                                    <div class="highlight-info">
-                                        <div class="row form-row highlight-cont">
-                                            <div class="col-10">
-                                                <div class="form-group">
-                                                    <label>Highlight</label>
-                                                    <input type="text" class="form-control" name="name" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-2">
-                                                <label class="d-md-block d-sm-none d-none">&nbsp;</label>
-                                                <a href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a>
-                                            </div>
+                            <div class="edit-highlight-info mt-4">
+                                <div class="row">
+                                    <h4>Work Highlights</h4>
+                                </div>
+
+                                <form *ngFor="let highlight of highlightForm.controls; let i = index" [formGroup]="getHighlightFormRecord(i)" class="row form-row highlight-cont mt-2">
+                                    <div class="col-10">
+                                        <div class="form-group">
+                                            <label>Highlight</label>
+                                            <input type="text" class="form-control" formControlName="name">
                                         </div>
                                     </div>
-                                    <div class="add-more">
-                                        <a href="javascript:void(0);" class="add-highlight"><i class="fa fa-plus-circle"></i> Add More</a>
+                                    <div class="col-12 col-md-2">
+                                        <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+                                        <a (click)="deleteHighlightFormRecord(i)" class="btn btn-danger trash" href="javascript:void(0);"><i class="far fa-trash-alt"></i></a>
                                     </div>
-
-                                    <div class="form-row py-4">
-                                        <button type="submit" class="btn btn-primary">Update Work</button>
-                                    </div>
-
                                 </form>
                             </div>
-                        </div>
+
+                            <div class="add-more row pt-3 text-center">
+                                <a href="javascript:void(0);" class="add-highlight" (click)="addHighlightFormRecord()"><i class="fa fa-plus-circle"></i> Add Highlights</a>
+                            </div>
+
+                            <div class="form-row py-4">
+                                <button type="submit" class="btn btn-primary">Update Work</button>
+                            </div>
+
+                        </form>
+
 
                     </div>
                 </div>
             </div>
         </div>
-    <!-- /Add Letter Form Body  -->
 
     </div>
 </section>

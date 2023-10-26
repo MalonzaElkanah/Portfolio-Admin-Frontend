@@ -4,7 +4,7 @@ import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SharedRoutingModule } from './shared-routing.module';
 /** App Interceptor */
-import { Interceptor } from './interceptors/interceptor';
+import { httpInterceptorProviders } from './interceptors';
 
 @NgModule({
   declarations: [],
@@ -12,12 +12,6 @@ import { Interceptor } from './interceptors/interceptor';
     CommonModule,
     SharedRoutingModule
   ],
-  providers : [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: Interceptor,
-      multi: true,
-    },
-  ]
+  providers : [httpInterceptorProviders]
 })
 export class SharedModule { }

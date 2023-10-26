@@ -31,6 +31,10 @@ export interface SocialLinkList extends Paginator {
   results: [SocialLink];
 }
 
+export interface UploadResponse {
+  path: string;
+}
+
 export interface SocialLinkError {
   name?: [string];
   logo?: [string];

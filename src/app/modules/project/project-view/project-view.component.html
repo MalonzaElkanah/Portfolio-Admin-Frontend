@@ -8,12 +8,12 @@
 		                    <div class="col-lg-8 col-sm-12">
 		                        <div class="row">
 		                            <div class="col-lg-3 col-sm-12">
-		                                <img src="favicon.ico" class="img-thumbnail" alt="#  Image">
+		                                <img src="{{ project.image }}" class="img-thumbnail" alt="#  Image">
 		                            </div>
 		                            <div class="col-lg-9 col-sm-12">
-		                                <h1>Project Nemesis</h1>
+		                                <h1>{{ project.name }}</h1>
 		                                <p class="text-muted">
-		                                	<span>Python | Django | HTML | Bootstrap | CSS | Javascript | JQuery | SQLite | DjangoORM | Google-Api </span> |
+		                                	<span class="badge bg-primary m-1" *ngFor="let keyword of project?.keywords"> {{ keyword?.technology }}</span> 
 		                                </p>
 
 		                            </div>
@@ -24,7 +24,7 @@
 		                            <li class="list-group-item d-flex justify-content-between">
 		                                <div class="ms-2 me-auto">
 		                                  <div class="fw-bold">Project Link<i class="fas fa-globe text-muted"></i></div>
-		                                  <a class="text-decoration-none" href="#" target="_blank" rel="noopener noreferrer"> visit project website</a>
+		                                  <a class="text-decoration-none" href="{{ project.url }}" target="_blank" rel="noopener noreferrer"> visit project website</a>
 		                                </div>
 		                            </li>
 		                        </ul>
@@ -38,36 +38,21 @@
 					            <div class="row">
 					            	<div class="col-12">
 						                <h3>About</h3>
-						                <p>You can also fetch the data from a server using an Ajax call. You can use the angular directives to render the table. Angular-datatables provides a dtTrigger you can use to manually trigger the rendering of the table. We have also listed out a few links regarding the project. If you'd like more help, please check out Discussions section on our GitHub repository for more information. If you'd like to help improve this library, please open an issue on the repository with your suggestions and feedback. We ask you to follow GitHub Code of Conduct when opening issues or discussion as we like to keep this community open and welcoming for all.</p>
+						                <p [innerHTML]="project.description"></p>
 						            </div>
-					                <div class="col-12">
-				                        <a href="#" class="btn btn-primary">Django</a> <a href="#" class="btn btn-primary"> Django</a> <a href="#" class="btn btn-primary">  Rest Framework</a> <a href="#" class="btn btn-primary"> Python</a>
-					                </div>
-					                <div class="col-12 pt-4">
-					                    <iframe width="100%" height="500"  src="#">
+					                <div class="col-12 pt-4" *ngIf="project?.video_url">
+					                    <iframe width="100%" height="500"  src="{{project.video_url}}">
 					                    </iframe>
 					                </div>
-					                <div class="col-12 py-4">
+					                <div class="col-12 py-4" *ngIf="project?.images![0]">
 					                    <h4>Project Gallery</h4>
 					                    <div class="row clearfix">
 					                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
 					                            <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
 
-					                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 g-5">
-					                                    <a href="#" data-sub-html="Demo Description">
-					                                      <img class="img-fluid thumbnail" src="#" alt="">
-					                                    </a>
-					                                </div>
-
-					                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 g-5">
-					                                    <a href="favicon.ico" data-sub-html="Demo Description">
-					                                      <img class="img-fluid thumbnail" src="favicon.ico" alt="">
-					                                    </a>
-					                                </div>
-
-					                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 g-5">
-					                                    <a href="favicon.ico" data-sub-html="Demo Description">
-					                                      <img class="img-fluid thumbnail" src="favicon.ico" alt="">
+					                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 g-5" *ngFor="let image of project?.images">
+					                                    <a href="{{image?.picture}}">
+					                                      <img class="img-fluid thumbnail" src="{{image?.picture}}" alt="">
 					                                    </a>
 					                                </div>
 

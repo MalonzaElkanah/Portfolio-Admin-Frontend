@@ -5,10 +5,12 @@ import { SkillListComponent } from './skill-list/skill-list.component';
 import { SkillUpdateComponent } from './skill-update/skill-update.component';
 import { SkillCreateComponent } from './skill-create/skill-create.component';
 
+import { skillsResolver } from './skills.resolver';
+
 const routes: Routes = [
-  { path: "skills", component: SkillListComponent },
-  { path: "skills/update", component: SkillUpdateComponent },
-  { path: "skills/create", component: SkillCreateComponent }
+  { path: "", component: SkillListComponent },
+  { path: "update/:slug/:id", component: SkillUpdateComponent, resolve: {skill: skillsResolver} },
+  { path: "create", component: SkillCreateComponent }
 ];
 
 @NgModule({

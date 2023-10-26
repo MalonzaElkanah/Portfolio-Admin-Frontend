@@ -1,122 +1,31 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
-
-    <!-- Edit/Add Profile Form Body  -->
-        <div class="row p-3">
-            <a href="#" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Pricing</a>
+        <div class="row mb-3 text-center">
+            <h4>Work Pricing </h4>
         </div>
         <div class="row">
 
-            <div class="col-12 col-md-4 col-lg-4">
+            <div class="col-12 col-md-4 col-lg-4" *ngFor="let price of priceList?.results">
                 <div class="pricing">
-                    <div class="pricing-title">Full Time Work</div>
+                    <div class="pricing-title">{{price.name}}</div>
                     <div class="pricing-padding">
                         <div class="pricing-price">
-                            <div>kSh 0.0</div>
+                            <div>kSh {{price.price}}</div>
                             <div>per month</div>
                         </div>
                         <div class="pricing-details">
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon"><i class="fas fa-check"></i></div>
+                            <div class="pricing-item" *ngFor="let keyword of price.keywords">
+                                <div *ngIf="keyword.status === 'active'" class="pricing-item-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div *ngIf="keyword.status === 'not_active'" class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
 
-                                <div class="pricing-item-label">Backend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                        
+                                <div class="pricing-item-label">{{keyword.name}}</div>
+                            </div>                        
                         </div>
                     </div>
                     <div class="pricing-cta">
-                        <a href="#">Edit <i class="fas fa-pencil-alt"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-4">
-                <div class="pricing">
-                    <div class="pricing-title">Full Time Work</div>
-                    <div class="pricing-padding">
-                        <div class="pricing-price">
-                            <div>kSh 0.0</div>
-                            <div>per month</div>
-                        </div>
-                        <div class="pricing-details">
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon"><i class="fas fa-check"></i></div>
-
-                                <div class="pricing-item-label">Backend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="pricing-cta">
-                        <a href="#">Edit <i class="fas fa-pencil-alt"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-4">
-                <div class="pricing">
-                    <div class="pricing-title">Full Time Work</div>
-                    <div class="pricing-padding">
-                        <div class="pricing-price">
-                            <div>kSh 0.0</div>
-                            <div>per month</div>
-                        </div>
-                        <div class="pricing-details">
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon"><i class="fas fa-check"></i></div>
-
-                                <div class="pricing-item-label">Backend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                            <div class="pricing-item">
-                                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
-
-                                <div class="pricing-item-label">Frontend Development</div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="pricing-cta">
-                        <a href="#">Edit <i class="fas fa-pencil-alt"></i></a>
+                        <a [routerLink]="['update', slugify(price.name), binarify(price?.id ?? 0)]">Edit <i class="fas fa-pencil-alt"></i></a>
                     </div>
                 </div>
             </div>
@@ -124,7 +33,10 @@
             <!--div class="text-center"><p>No Prices Available. Click <a href="#">Here</a> to Add.</p></div-->
 
         </div>
-    <!-- /Add Letter Form Body  -->
+
+        <div class="row p-3">
+            <a routerLink="create"  class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Pricing</a>
+        </div>
 
     </div>
 </section>

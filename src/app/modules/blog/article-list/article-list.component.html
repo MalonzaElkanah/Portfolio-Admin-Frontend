@@ -1,4 +1,4 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
         <div class="row">
             <div class="col-12">
@@ -6,19 +6,19 @@
                     <div class="card-body">
                         <ul class="nav nav-pills">
                             <li class="nav-item">
-                                <a id="status-all" class="nav-link status-link active" href="#">All <span class="badge badge-white status-badge">100</span></a>
+                                <a id="status-all" class="nav-link status-link active" href="#">All <span class="badge bg-white text-primary status-badge">100</span></a>
                             </li>
                             <li class="nav-item">
-                                <a id="status-draft" class="nav-link status-link" href="#">Publish <span class="badge badge-primary status-badge">23</span></a>
+                                <a id="status-draft" class="nav-link status-link" href="#">Publish <span class="badge bg-primary status-badge">23</span></a>
                             </li>
                             <li class="nav-item">
-                                <a id="status-draft" class="nav-link status-link" href="#">Draft <span class="badge badge-primary status-badge">25</span></a>
+                                <a id="status-draft" class="nav-link status-link" href="#">Draft <span class="badge bg-primary status-badge">25</span></a>
                             </li>
                             <li class="nav-item">
-                                <a id="status-pending" class="nav-link status-link" href="#">Pending <span class="badge badge-primary  status-badge">32</span></a>
+                                <a id="status-pending" class="nav-link status-link" href="#">Pending <span class="badge bg-primary  status-badge">32</span></a>
                             </li>
                             <li class="nav-item">
-                                <a id="status-trash" class="nav-link status-link" href="#">Trash <span class="badge badge-primary status-badge">8</span></a>
+                                <a id="status-trash" class="nav-link status-link" href="#">Trash <span class="badge bg-primary status-badge">8</span></a>
                             </li>
                         </ul>
                     </div>
@@ -29,16 +29,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>All Posts</h4>
-                        <div class="card-header-action">
-                            <a href="#" class="btn btn-primary">
+                        <div class="float-start h4">All Posts</div>
+                        <div class="float-end">
+                            <a routerLink="create" class="btn btn-primary">
                                 <i class="fas fa-plus"></i>
                                 Add Post
-                             </a>
+                            </a>
                         </div>
                     </div>
-                         <div class="card-body">
-                            <div class="float-left">
+                        <div class="card-body">
+                            <div class="float-start">
                                 <select class="form-control selectric">
                                     <option>Action For Selected</option>
                                     <option>Move to Draft</option>
@@ -46,188 +46,130 @@
                                     <option>Delete Permanently</option>
                                 </select>
                             </div>
-                            <div class="float-right">
-                                <form>
+                            <div class="float-end">
+                                <form [formGroup]="searchForm" (ngSubmit)="searchArticles(searchInput.value)">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                         <div class="input-group-append">
-                                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                        </div>
+                                        <input type="text" class="form-control" placeholder="Search" formControlName="search" #searchInput>
+                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
                                 </form>
                             </div>
                             <div class="clearfix mb-3"></div>
                             <div class="table-responsive">
-                                <table datatable [dtOptions]="dtOptions" id="table-1" class="table table-striped">
-                                    <tr>
-                                        <th class="pt-2">
-                                            <div class="custom-checkbox custom-checkbox-table custom-control">
-                                              <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
-                                                class="custom-control-input" id="checkbox-all">
-                                              <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                            </div>
-                                        </th>
-                                        <th>Title</th>
-                                        <th>Series</th>
-                                        <th>Category</th>
-                                        <th>Created At</th>
-                                        <th>Tags</th>
-                                        <th>views</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    
-                                    <tr class="article-all article-1">
-                                        <td>
-                                            <div class="custom-checkbox custom-control">
-                                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                                                id="checkbox-2">
-                                              <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#">
-                                              <img alt="image" src="favicon.ico" class="rounded-circle" width="35"
-                                                data-toggle="title" title="">
-                                              <span class="d-inline-block ml-1">How to Work with Angular and MySQL - #15 by oktadev-blog</span>
-                                            </a>
-                                            <div class="table-links">
-                                              <a href="#">View</a>
-                                              <div class="bullet"></div>
-                                              <a href="#">Edit</a>
-                                              <div class="bullet"></div>
-                                              <a href="#" class="text-danger">Trash</a>
-                                            </div>
-                                        </td>
-                                        <td><a href="#">Angular 101</a></td>
-                                        <td>
-                                            <a href="#">Angular</a>
-                                        </td>
-                                        <td>July 10, 2023</td>
-                                        <td>Angular TS, JS</td>
-                                        <td>10</td>
-                                        <td>
-                                            <div class="badge badge-warning">Pending</div>
-                                            <!-- div class="badge badge-primary">Publish</div>
-                                            <div class="badge badge-secondary">Draft</div>
-                                            <div class="badge badge-danger">Trash</div>
-                                            <div class="badge badge-primary">{{article.status}}</div-->
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-outline-primary">Comments(0)</a>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr class="article-all article-1">
-                                        <td>
-                                            <div class="custom-checkbox custom-control">
-                                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                                                id="checkbox-2">
-                                              <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#">
-                                              <img alt="image" src="favicon.ico" class="rounded-circle" width="35"
-                                                data-toggle="title" title="">
-                                              <span class="d-inline-block ml-1">How to Work with Angular and MySQL - #15 by oktadev-blog</span>
-                                            </a>
-                                            <div class="table-links">
-                                              <a href="#">View</a>
-                                              <div class="bullet"></div>
-                                              <a href="#">Edit</a>
-                                              <div class="bullet"></div>
-                                              <a href="#" class="text-danger">Trash</a>
-                                            </div>
-                                        </td>
-                                        <td><a href="#">Angular 101</a></td>
-                                        <td>
-                                            <a href="#">Angular</a>
-                                        </td>
-                                        <td>July 10, 2023</td>
-                                        <td>Angular TS, JS</td>
-                                        <td>10</td>
-                                        <td>
-                                            <div class="badge badge-warning">Pending</div>
-                                            <!-- div class="badge badge-primary">Publish</div>
-                                            <div class="badge badge-secondary">Draft</div>
-                                            <div class="badge badge-danger">Trash</div>
-                                            <div class="badge badge-primary">{{article.status}}</div-->
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-outline-primary">Comments(0)</a>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr class="article-all article-1">
-                                        <td>
-                                            <div class="custom-checkbox custom-control">
-                                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                                                id="checkbox-2">
-                                              <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#">
-                                              <img alt="image" src="favicon.ico" class="rounded-circle" width="35"
-                                                data-toggle="title" title="">
-                                              <span class="d-inline-block ml-1">How to Work with Angular and MySQL - #15 by oktadev-blog</span>
-                                            </a>
-                                            <div class="table-links">
-                                              <a href="#">View</a>
-                                              <div class="bullet"></div>
-                                              <a href="#">Edit</a>
-                                              <div class="bullet"></div>
-                                              <a href="#" class="text-danger">Trash</a>
-                                            </div>
-                                        </td>
-                                        <td><a href="#">Angular 101</a></td>
-                                        <td>
-                                            <a href="#">Angular</a>
-                                        </td>
-                                        <td>July 10, 2023</td>
-                                        <td>Angular TS, JS</td>
-                                        <td>10</td>
-                                        <td>
-                                            <div class="badge badge-warning">Pending</div>
-                                            <!-- div class="badge badge-primary">Publish</div>
-                                            <div class="badge badge-secondary">Draft</div>
-                                            <div class="badge badge-danger">Trash</div>
-                                            <div class="badge badge-primary">{{article.status}}</div-->
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-outline-primary">Comments(0)</a>
-                                        </td>
-                                    </tr>
-                                    
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="pt-2">
+                                                <div class="custom-checkbox custom-checkbox-table custom-control">
+                                                  <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
+                                                    class="custom-control-input" id="checkbox-all">
+                                                  <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                                                </div>
+                                            </th>
+                                            <th>Title</th>
+                                            <th>Series</th>
+                                            <th>Category</th>
+                                            <th>Created At</th>
+                                            <th>Tags</th>
+                                            <th>views</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let article of articles?.results" class="article-all article-{{article.status}}">
+                                            <td>
+                                                <div class="custom-checkbox custom-control">
+                                                  <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
+                                                    id="checkbox-2">
+                                                  <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
+                                                </div>
+                                            </td>
+                                            <td class="d-flex flex-column ">
+                                                <a href="#" class="d-flex flex-row text-decoration-none">
+                                                    <img alt="#" src="{{article?.image}}" class="img-thumbnail rounded-circle me-3" width="35"
+                                                    data-toggle="title" title="#">
+                                                    <span class="d-inline-block ml-1 text-dark">{{article.title}}</span>
+                                                </a>
+                                                <div class="table-links d-flex flex-row">
+                                                    <a class="mx-1" href="#">View</a>
+                                                    <div class="mx-1" class="bullet">&bull;</div>
+                                                    <a class="mx-1" [routerLink]="['update', slugify(article.title), binarify(article.id ?? 0)]">Edit</a>
+                                                    <div class="mx-1" class="bullet">&bull;</div>
+                                                    <a class="mx-1" href="javascript:void();" (click)="removeArticle(article)" class="text-danger">Trash</a>
+                                                </div>
+                                            </td>
+                                            <td><a href="#" class="text-decoration-none">{{article?.series?.name}}</a></td>
+                                            <td>
+                                                <a href="#" class="text-decoration-none">{{article.category.name}}</a>
+                                            </td>
+                                            <td>{{ article?.date_created | date: 'MMMM dd, YYYY' }}</td>
+                                            <td>
+                                                <span *ngFor="let tag of article?.tags?.split(',')" class="badge bg-primary text-white m-1">{{tag}}</span> 
+                                            </td>
+                                            <td class="text-primary">{{article.views}}</td>
+                                            <td>
+                                                <div [ngClass]="[getStatusBadge(article.status)]" class="badge">{{article.status}}</div>
+                                                <!-- div class="badge badge-primary">Publish</div>
+                                                <div class="badge badge-secondary">Draft</div>
+                                                <div class="badge badge-danger">Trash</div>
+                                                <div class="badge badge-primary">{{article.status}}</div-->
+                                            </td>
+                                            <td>
+                                                <a [routerLink]="['comments', slugify(article.title), binarify(article.id ?? 0)]" class="btn btn-outline-primary">Comments(0)</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
                                 </table>
                             </div>
-                            <div class="float-left">
-                                <a href="#" class="btn btn-primary">APPLY</a>
-                            </div>
-                            <div class="float-right">
-                                <nav>
-                                    <ul class="pagination">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                        </li>
+                            <div>
+                                <div class="float-start">
+                                    <a href="#" class="btn btn-primary">APPLY</a>
+                                </div>
+                                <div class="float-end">
+                                    <nav>
+                                        <ul class="pagination">
+                                            <ng-container *ngIf="articles?.previous; else noPrevious">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void();" (click)="pageArticles(articles?.previous)" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>
+                                            </ng-container>
+                                            <ng-template #noPrevious>
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="javascript:void();" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>
+                                            </ng-template>
 
-                                        <li class="page-item active">
-                                            <a class="page-link" href="?page=1">1</a>
-                                        </li>
-
-                                         <li class="page-item disabled">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                            <li class="page-item active">
+                                                <a class="page-link" href="javascript:void();">X</a>
+                                            </li>
+                                            <ng-container *ngIf="articles?.next; else noNext">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void();" (click)="pageArticles(articles?.next)" aria-label="Next">
+                                                        <span class="sr-only">Next</span>
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ng-container>
+                                            <ng-template #noNext>
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="javascript:void();" aria-label="Next">
+                                                        <span class="sr-only">Next</span>
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ng-template>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>

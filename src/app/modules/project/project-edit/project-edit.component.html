@@ -1,87 +1,77 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
 
     <!-- Edit/Add Profile Form Body  -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header text-center"><h4>UPDATE '{{project.name}}' PROJECT</h4></div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 pt-4">
-                                <form method="post" action="#" enctype="multipart/form-data">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Image</label>
-                                            <input type="file" class="form-control" name="image">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Project Name</label>
-                                            <input type="text" class="form-control" name="name" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Url</label>
-                                            <input type="text" class="form-control" name="url" value="" required>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Date</label>
-                                            <input type="text" class="form-control" name="date" value="" placeholder="YYYY-MM-DD" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Video LInk</label>
-                                             <input type="text" class="form-control" name="video_url" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label>Technologies</label>
-                                            <input type="text" class="form-control inputtags" name="keywords" value="" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label>New Project Images</label>
-                                            <input type="file" class="form-control" name="picture" multiple>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label>Description</label>
-                                            <textarea class="form-control" name="description"> </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <button type="submit" class="btn btn-primary">Add Project</button>
-                                    </div>
-
-                                </form>
+                        <form class="my-3 mx-2" [formGroup]="projectForm" (submit)="submitProjectForm()">
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Project Name</label>
+                                    <input type="text" class="form-control" formControlName="name" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.name">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Display Image</label>
+                                    <input type="file" class="form-control" formControlName="image" (change)="uploadFile($event)">
+                                    <div class="form-text">Current Image: <a href="{{project.image}}">{{project.image}}</a></div>
+                                    <div class="form-text">{{imageUpload}}</div>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.image">{{error}}, </span></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row pt-4">
-                            <div class="col-12 text-center"><h3>Update Project Images</h3></div>
-                            
-                            <div class="col-12 pt-3">
-                                <form method="post" action="#" enctype="multipart/form-data">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label>Image 1</label>
-                                            <input type="file" class="form-control" name="image">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                            <a href="#" class="btn btn-danger">Remove</a>
-                                        </div>
-                                    </div>
-                                </form>
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Project Url</label>
+                                    <input type="text" class="form-control" formControlName="url" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.url">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Video LInk</label>
+                                     <input type="text" class="form-control" formControlName="video_url">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.video_url">{{error}}, </span></div>
+                                </div>
                             </div>
 
-                        </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Date</label>
+                                    <input type="text" class="form-control" formControlName="date" placeholder="YYYY-MM-DD" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.date">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 my-2">
+                                    <label>Tech-Stack</label>
+                                    <!--input type="text" class="form-control inputtags" name="keywords" value="" required-->
+                                    <ng-select [items]="project.keywords ?? []"
+                                        formControlName="keywords"
+                                        [multiple]="true"
+                                        [selectOnTab]="true"
+                                        bindLabel="technology"
+                                        bindValue="technology"
+                                        [addTag]="addTagFn"
+                                        [(ngModel)]="selectedItems"
+                                        [isOpen]="false"
+                                       >
+                                    </ng-select>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.keywords">{{error}}, </span></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12  my-2">
+                                    <label>Description</label>
+                                    <textarea [ngxSummernote]="config" class="form-control" formControlName="description"> </textarea>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.description">{{error}} </span></div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Update Project</button>
+                        </form>
                         
                     </div>
                 </div>

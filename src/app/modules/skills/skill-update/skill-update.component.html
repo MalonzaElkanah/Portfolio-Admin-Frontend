@@ -1,51 +1,58 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
 
-    <!-- Edit/Add Profile Form Body  -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header text-center">
+                        <h4>UPDATE SKILL</h4>
+                    </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <form method="post" action="#">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" name="name" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Proficiency</label>
-                                            <input type="text" class="form-control" name="first_name" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label>Keywords</label>
-                                            <input type="text" class="form-control" name="keywords" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label>Description</label>
-                                            <textarea class="form-control" name="description"></textarea>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row py-4">
-                                        <button type="submit" class="btn btn-primary">Update Skills</button>
-                                    </div>
-
-                                </form>
+                        <form class="my-3 mx-2" [formGroup]="skillForm" (submit)="submitSkillForm()">
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" formControlName="name">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of skillError.name">{{error}}, </span></div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <label>Keywords</label>
+                                    <!--input type="text" class="form-control" name="keywords"-->
+                                    <ng-select [items]="skill.keywords"
+                                        formControlName="keywords"
+                                        [multiple]="true"
+                                        [selectOnTab]="true"
+                                        [isOpen]="false"
+                                        bindLabel="name"
+                                        [addTag]="addTagFn"
+                                        [(ngModel)]="selectedItems"
+                                       > 
+                                    </ng-select>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of skillError.keywords">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <label>Description</label>
+                                    <textarea class="form-control" formControlName="description"></textarea>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of skillError.description">{{error}}, </span></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row py-4">
+                                <button type="submit" class="btn btn-primary">Update Skill</button>
+                            </div>
+
+                        </form>
+
 
                     </div>
                 </div>
             </div>
         </div>
-    <!-- /Add Letter Form Body  -->
 
     </div>
 </section>
-

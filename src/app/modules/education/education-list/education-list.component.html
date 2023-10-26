@@ -1,4 +1,4 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
         <h2 class="section-title">Education History</h2>
         <div class="row">
@@ -11,91 +11,41 @@
                         </div>
                         <div class="activity-detail">
                             <div class="mb-2">
-                            <a href="#" class="btn btn-primary">Add Education</a>
+                            <a routerLink="create" class="btn btn-primary">Add Education</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="activity">
+                    <div class="activity" *ngFor="let education of educationList.results">
                         <div class="activity-icon bg-primary text-white">
                             <i class="fas fa-award"></i>
                         </div>
-                        <div class="activity-detail">
-                            <div class="mb-2">
-                                <span class="text-job">Horgwat School of Mgic</span>
-                                <span class="bullet"></span>
-                                <a class="text-job" href="#">Edit</a>
-                                <span class="bullet"></span>
-                                <a class="text-job text-danger" href="#" data-toggle="modal" data-target="#deleteEduModal">Delete</a>
+                        <div class="activity-detail p-4 fs-6">
+                            <div class="mb-2 font-monospace small">
+                                <span class="text-job strong me-3">{{education.institution}}</span>
+                                <span class="bullet strong">&bull;</span>
+                                <a class="text-job text-decoration-none strong" [routerLink]="['update', slugify(education.study_type), binarify(education.id ?? 0)]">EDIT</a>
+                                <span class="bullet strong">&bull;</span>
+                                <a class="text-job text-danger text-decoration-none strong" href="javascript:void();" (click)="removeEducation(education)">DELETE</a>
                             </div>
                             <div class="profile-widget-description pb-0">
-                                <div class="profile-widget-name">Bachelor of Schience, Computer Technology<div class="text-muted d-inline font-weight-normal"> <div class="slash"></div> July 20, 2021 - August 11, 2023</div></div>
-                                <p>
+                                <div class="profile-widget-name mb-2 small">
+                                    {{ education.study_area }}, {{ education.study_type }}
+                                    <span class="text-muted d-inline font-weight-normal">
+                                    <span class="strong"> / </span> {{ education.start_date | date: 'MMMM dd, YYYY' }} - {{ education.end_date | date: 'MMMM dd, YYYY' }}</span>
+                                </div>
+                                <p class="mb-2  small">
                                     <i class="fas fa-medal px-2"></i>
-                                    <a href="mailto:elkanahmalonza@gmail.com">edu gpa</a>
-                                    <br>
-                                    <i class="fas fa-map-marker-alt px-2"></i>
-                                    <a href="#">Nairobi, Kenya</a>
+                                    <a class="text-decoration-none" href="mailto:elkanahmalonza@gmail.com">{{ education.gpa }}</a>
                                 </p>
-                                <p>Core subjects Included: Systems Analysis & Design, Network Design, Database Design, Object Oriented Design, Network Security, Firewall Design, Logistics, General Management and Accounting. Participated in leadership and team Activities including being a member Computer & Information Technology Club.</p>
+                                <p class="mb-2  small">
+                                    <i class="fas fa-map-marker-alt px-2"></i>
+                                    <a class="text-decoration-none" href="#">{{ education.location }}</a>
+                                </p>
+                                <p class="pt-2 text-muted mx-2 blockquote-footer">{{ education.description }}</p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="activity">
-                        <div class="activity-icon bg-primary text-white">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <div class="activity-detail">
-                            <div class="mb-2">
-                                <span class="text-job">Horgwat School of Mgic</span>
-                                <span class="bullet"></span>
-                                <a class="text-job" href="#">Edit</a>
-                                <span class="bullet"></span>
-                                <a class="text-job text-danger" href="#" data-toggle="modal" data-target="#deleteEduModal">Delete</a>
-                            </div>
-                            <div class="profile-widget-description pb-0">
-                                <div class="profile-widget-name">Bachelor of Schience, Computer Technology<div class="text-muted d-inline font-weight-normal"> <div class="slash"></div> July 20, 2021 - August 11, 2023</div></div>
-                                <p>
-                                    <i class="fas fa-medal px-2"></i>
-                                    <a href="mailto:elkanahmalonza@gmail.com">edu gpa</a>
-                                    <br>
-                                    <i class="fas fa-map-marker-alt px-2"></i>
-                                    <a href="#">Nairobi, Kenya</a>
-                                </p>
-                                <p>Core subjects Included: Systems Analysis & Design, Network Design, Database Design, Object Oriented Design, Network Security, Firewall Design, Logistics, General Management and Accounting. Participated in leadership and team Activities including being a member Computer & Information Technology Club.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity">
-                        <div class="activity-icon bg-primary text-white">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <div class="activity-detail">
-                            <div class="mb-2">
-                                <span class="text-job">Horgwat School of Mgic</span>
-                                <span class="bullet"></span>
-                                <a class="text-job" href="#">Edit</a>
-                                <span class="bullet"></span>
-                                <a class="text-job text-danger" href="#" data-toggle="modal" data-target="#deleteEduModal">Delete</a>
-                            </div>
-                            <div class="profile-widget-description pb-0">
-                                <div class="profile-widget-name">Bachelor of Schience, Computer Technology<div class="text-muted d-inline font-weight-normal"> <div class="slash"></div> July 20, 2021 - August 11, 2023</div></div>
-                                <p>
-                                    <i class="fas fa-medal px-2"></i>
-                                    <a href="mailto:elkanahmalonza@gmail.com">edu gpa</a>
-                                    <br>
-                                    <i class="fas fa-map-marker-alt px-2"></i>
-                                    <a href="#">Nairobi, Kenya</a>
-                                </p>
-                                <p>Core subjects Included: Systems Analysis & Design, Network Design, Database Design, Object Oriented Design, Network Security, Firewall Design, Logistics, General Management and Accounting. Participated in leadership and team Activities including being a member Computer & Information Technology Club.</p>
-                            </div>
-                        </div>
-                    </div>
-                
-
-
 
                 </div>
             </div>

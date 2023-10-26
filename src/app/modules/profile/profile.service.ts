@@ -8,7 +8,8 @@ import {
     Profile,
     SocialLink,
     SocialLinkList,
-    ProfileError 
+    ProfileError,
+    UploadResponse
 } from './profile';
 import { environment } from 'src/environments/environment';
 
@@ -74,6 +75,20 @@ export class ProfileService {
         return this.http.delete<any>(
             `${endpoint}profile/1/social-links/${id}/`,
             httpOptions
+        )
+    }
+
+    uploadImage(formData: FormData) {
+        return this.http.post<UploadResponse | any>(
+          `${endpoint}upload-image/`,
+          formData
+        )
+    }
+
+    uploadFile(formData: FormData) {
+        return this.http.post<UploadResponse | any>(
+          `${endpoint}upload-file/`,
+          formData
         )
     }
 }

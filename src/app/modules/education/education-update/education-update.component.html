@@ -1,66 +1,72 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
 
     <!-- Edit/Add Profile Form Body  -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header text-center"><h4>UPDATE EDUCATION</h4></div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <form method="post" action="#">
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-10">
-                                            <label>Institution</label>
-                                            <input type="text" class="form-control" name="institution" value="" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Study Area</label>
-                                            <input type="text" class="form-control" name="study_area" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Study Type</label>
-                                            <input type="text" class="form-control" name="study_type" value="" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>GPA</label>
-                                            <input type="text" class="form-control" name="gpa" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Location</label>
-                                            <input type="text" class="form-control" name="location" value="" required>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Start Date</label>
-                                            <input type="text" class="form-control" name="start_date" value="" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>End Date</label>
-                                             <input type="text" class="form-control" name="end_date" value="" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Description</label>
-                                            <textarea class="form-control" name="description"></textarea>
-                                        </div>
-                                    </div>
+                        <form class="my-3 mx-2" [formGroup]="educationForm" (submit)="submitEducationForm()">
 
-                                    <div class="form-row py-4">
-                                        <button type="submit" class="btn btn-primary">Update Education</button>
-                                    </div>
-
-                                </form>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Institution</label>
+                                    <input type="text" class="form-control" formControlName="institution">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.institution">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Location</label>
+                                    <input type="text" class="form-control" formControlName="location" value="" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.location">{{error}}, </span></div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Study Area</label>
+                                    <input type="text" class="form-control" formControlName="study_area">
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.study_area">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Study Type</label>
+                                    <input type="text" class="form-control" formControlName="study_type" value="" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.study_type">{{error}}, </span></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Start Date</label>
+                                    <input type="text" class="form-control" formControlName="start_date" value="" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.start_date">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>End Date</label>
+                                     <input type="text" class="form-control" formControlName="end_date" value="" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.end_date">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>GPA</label>
+                                    <input type="text" class="form-control" formControlName="gpa" value="" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.gpa">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Description</label>
+                                    <textarea class="form-control" formControlName="description"></textarea>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of educationError.description">{{error}}, </span></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row py-4">
+                                <button type="submit" class="btn btn-primary">Update Education</button>
+                            </div>
+
+                        </form>
+
 
                     </div>
                 </div>
@@ -70,3 +76,4 @@
 
     </div>
 </section>
+

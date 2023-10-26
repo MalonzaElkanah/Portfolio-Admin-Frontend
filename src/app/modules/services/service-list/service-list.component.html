@@ -1,20 +1,22 @@
-    <section class="section">
+    <section class="section mt-4">
         <div class="section-body">
             <div class="row">
 	            <div class="col-12">
 	                <div class="card">
 		                <div class="card-header">
-		                    <h4>My Services</h4>
-		                    <div class="card-header-action">
-                              	<a href="#" class="btn btn-primary">
-	                                <i class="fas fa-plus"></i>
-	                                Add Service
-	                            </a>
+		                    <div class="row">
+			                    <div class="col-md-10 col-sm-9 h4">My Skills</div>
+			                    <div class="col-md-2 col-sm-3">
+		                          	<a routerLink="add" class="btn btn-primary">
+		                                <i class="fas fa-plus"></i>
+		                                Add Service
+		                             </a>
+		                        </div>
 	                        </div>
 		                </div>
 	                  	<div class="card-body">
 		                    <div class="table-responsive">
-			                    <table datatable [dtOptions]="dtOptions" class="table table-striped" id="table-2">
+			                    <table class="table table-striped" id="table-2">
 			                        <thead>
 				                        <tr>
 				                            <th class="text-center">#</th>
@@ -22,37 +24,19 @@
 				                            <th>Logo</th>
 				                            <th>Description</th>
 				                            <th>Action</th>
-                                            <th></th>
 				                        </tr>
 			                        </thead>
 			                        <tbody>
-				                        <tr>
-				                            <td class="text-center">1</td>
-				                            <td>API Development</td>
-				                            <td class="align-middle">fas fa-drafting-compass</td>
-				                            <td>Using API development best practice like versioning, security and throttling, I develop APIs for mobile app, IOT devices and web apps.</td>
+				                        <tr *ngFor="let service of serviceList?.results; let i = index">
+				                            <td class="text-center">{{i+1}}</td>
+				                            <td>{{ service.name }}</td>
+				                            <td class="align-middle">{{ service.logo }}</td>
+				                            <td>{{ service.description }}</td>
 				                            <td>
-				                            	<a href="#" class="btn btn-primary">Edit</a>
-				                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteServiceModal">Delete</a>
+				                            	<a [routerLink]="['update', slugify(service.name), binarify(service.id ?? 0)]" class="btn btn-primary m-1">Update</a>
+				                        		<a href="javascript:void();" (click)="removeService(service)" class="btn btn-danger m-1" >Delete</a>
                                             </td>
 				                        </tr>
-
-				                        <tr>
-				                            <td class="text-center">2</td>
-				                            <td>Computer Scripting</td>
-				                            <td class="align-middle">fas fa-drafting-compass</td>
-				                            <td>I create programs to make work easier and desirable by write computer scripts to automates the execution of varies tasks, tweak applications and OS. </td>
-				                            <td>
-				                            	<a href="#" class="btn btn-primary">Edit</a>
-				                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteServiceModal">Delete</a>
-                                            </td>
-				                        </tr>
-
-
 
                         			</tbody>
                       			</table>

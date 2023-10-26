@@ -3,25 +3,30 @@ import { CommonModule } from '@angular/common';
 
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ErrorsModule } from './errors/errors.module';
+import { CoreRoutingModule } from './core-routing.module';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
     AuthenticationModule,
-    ErrorsModule
+    ErrorsModule,
+    CoreRoutingModule
   ],
   exports: [
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoaderComponent
   ]
 })
 export class CoreModule { }

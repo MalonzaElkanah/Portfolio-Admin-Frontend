@@ -14,7 +14,7 @@ export class ModulesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(){
-    //$(".loader").fadeOut("slow");
+    // $(".loader").fadeOut("slow");
   }
 
 }

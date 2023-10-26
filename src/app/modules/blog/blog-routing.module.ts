@@ -6,11 +6,13 @@ import { ArticleUpdateComponent } from './article-update/article-update.componen
 import { ArticleListComponent } from './article-list/article-list.component';
 import { CommentsComponent } from './comments/comments.component';
 
+import { blogResolver } from './blog.resolver';
+
 const routes: Routes = [
   { path: "articles", component: ArticleListComponent },
   { path: "articles/create", component: ArticleCreateComponent },
-  { path: "articles/update", component: ArticleUpdateComponent },
-  { path: "articles/comments", component: CommentsComponent }
+  { path: "articles/update/:slug/:id", component: ArticleUpdateComponent, resolve: { article: blogResolver } },
+  { path: "articles/comments/:slug/:id", component: CommentsComponent, resolve: { article: blogResolver } }
 ];
 
 @NgModule({

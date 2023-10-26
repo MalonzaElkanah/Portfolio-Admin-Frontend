@@ -22,6 +22,48 @@ const routes: Routes = [
     data: { breadcrumb: 'Profile' },
     loadChildren: () =>
      import(`./profile/profile.module`).then((m) => m.ProfileModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'projects',
+    data: { breadcrumb: 'projects'},
+    loadChildren: () =>
+      import('./project/project.module').then((m) => m.ProjectModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'work',
+    data: { breadcrumb: 'work'},
+    loadChildren: () =>
+      import('./work/work.module').then((m) => m.WorkModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'education',
+    data: { breadcrumb: 'education' },
+    loadChildren: () =>
+      import('./education/education.module').then((m) => m.EducationModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'skills',
+    data: { breadcrumb: 'skills'},
+    loadChildren: () =>
+      import('./skills/skills.module').then((m) => m.SkillsModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'services',
+    data: { breadcrumb: 'services'},
+    loadChildren: () =>
+      import('./services/services.module').then((m) => m.ServicesModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'pricing',
+    data: { breadcrumb: 'pricing'},
+    loadChildren: () =>
+      import('./prices/prices.module').then((m) => m.PricesModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'blog',
+    data: { breadcrumb: 'blog'},
+    loadChildren: () =>
+      import('./blog/blog.module').then((m) => m.BlogModule), canActivate: [AuthGuard]
   }
 ];
 

@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app/app.component';
-import { ProfileComponent } from './profile/profile.component';
+import { EmailComponent } from './email/email.component';
+import { PasswordComponent } from './password/password.component';
 
 const routes: Routes = [
   { path: "settings/app", component: AppComponent },
-  { path: "settings/profile", component: ProfileComponent }
+  { path: "settings/email-server", component: EmailComponent },
+  { path: "settings/change-password", component: PasswordComponent }
 ];
 
 @NgModule({

@@ -3,7 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormControl, FormRecord, FormArray } from '@angular/forms';
 
-import { Profile, SocialLink, ProfileError, SocialLinkList } from '../profile';
+import {
+  Profile,
+  SocialLink,
+  ProfileError,
+  SocialLinkList,
+  UploadResponse
+} from '../profile';
 import { ProfileService } from '../profile.service';
 
 @Component({
@@ -21,9 +27,15 @@ export class ProfileEditComponent implements OnInit {
   isFailed = false;
   errorMessage = '';
 
+  profileImage = "";
+  profileUpload = "";
+  cvFile = "";
+  cvUpload = "";
+
   profileForm: FormRecord =  new FormRecord({
     dummy_field: new FormControl()
   });
+
   socialLinkForm: FormArray = new FormArray([
     new FormRecord({
       name: new FormControl(''),
@@ -53,6 +65,8 @@ export class ProfileEditComponent implements OnInit {
   ) {
     this._route.data.subscribe(data => {
       this.profile = data['profile'];
+      this.profileImage = this.profile?.image ?? "";
+      this.cvFile = this.profile?.cv_file ?? "";
     });
 
   }
@@ -149,16 +163,78 @@ export class ProfileEditComponent implements OnInit {
     
   }
 
+  uploadImage(event: any){
+    console.log("Image UPLOAD");
+    console.log(event?.target); // event?.target.files
+    let file:File = event?.target?.files[0];
+
+    if (file) {
+      let fileName = file.name;
+      let formData = new FormData();
+
+      formData.append("image", file);
+
+      this.profileUpload = "Uploading Image..."
+
+      this._profileService.uploadImage(formData).subscribe(
+        (data: UploadResponse) => {
+          this.profileUpload = "Uploaded: "+data.path;
+          this.profileImage = data.path;
+        },
+        (error: any) => {
+          console.log(error);
+          this.profileUpload = "Error: Upoad Failed!";
+          if (error.status == 400) {
+            this.isFailed = true;
+            this.profileError.image = error.error?.image ?? "";
+          }
+        }
+      );
+
+    }
+  }
+
+  uploadCV(event: any){
+    console.log("CV UPLOAD");
+    console.log(event?.target); // event?.target.files
+    let file:File = event?.target?.files[0];
+
+    if (file) {
+      let fileName = file.name;
+      let formData = new FormData();
+
+      formData.append("file", file);
+
+      this.cvUpload = "Uploading File..."
+
+      this._profileService.uploadFile(formData).subscribe(
+        (data: UploadResponse) => {
+          this.cvUpload = "Uploaded: "+data.path;
+          this.cvFile = data.path;
+        },
+        (error: any) => {
+          console.log(error);
+          this.profileUpload = "Error: Upoad Failed!";
+          if (error.status == 400) {
+            this.isFailed = true;
+            this.profileError.cv_file = error.error?.file ?? "";
+          }
+        }
+      );
+
+    }
+  }
+
   submitProfileForm() {
     console.log("PROFILE DATA SUBMITTED!!");
     console.log(this.profileForm.value);
 
     let profile: Profile = {
-      // image: this.profileForm.value["image"] ?? '',
+      image: this.profileImage, // this.profileForm.value["image"] ?? '',
       first_name: this.profileForm.value["first_name"] ?? '',
       second_name: this.profileForm.value["second_name"] ?? '',
       description: this.profileForm.value["description"] ?? '',
-      // cv_file: this.profileForm.value["cv_file"] ?? '',
+      cv_file: this.cvFile, // this.profileForm.value["cv_file"] ?? '',
       email_1: this.profileForm.value["email_1"] ?? '',
       email_2: this.profileForm.value["email_2"] ?? '',
       address: this.profileForm.value["address"] ?? '',

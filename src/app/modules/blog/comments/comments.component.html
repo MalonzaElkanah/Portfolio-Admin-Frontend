@@ -1,4 +1,4 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
         <div class="row">
             <div class="col-12">
@@ -22,30 +22,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-center">1</td>
+                                    <tr *ngFor="let comment of comments?.results; let i = index">
+                                        <td class="text-center">{{i}}</td>
                                         <td>
-                                            <a href="#">Router tutorial: tour of heroes</a>
+                                            <a href="#">{{article.title}}</a>
                                         </td>
-                                        <td>John Doe</td>
-                                        <td>johndoe@gmail.com</td>
-                                        <td>In this tutorial, you build upon a basic router configuration to explore features such as child routes, route parameters, lazy load NgModules, guard routes, and ...</td>
-                                        <td>July 29, 2027</td>
+                                        <td>{{comment.name}}</td>
+                                        <td>{{comment.email}}</td>
+                                        <td>{{comment.message}}</td>
+                                        <td>{{ comment?.date_created | date: 'MMMM dd, YYYY' }}</td>
                                         <td><a href="#" class="btn btn-primary">Reply</a></td>
-                                        <td><a href="#" class="btn btn-danger">Delete</a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="text-center">Reply-1</td>
-                                        <td>
-                                            <a href="#">Common Routing Tasks</a>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>johndoe@gmail.com</td>
-                                        <td>This topic describes how to implement many of the common tasks associated with adding the Angular router to your application.</td>
-                                        <td>July 29, 2027</td>
-                                        <td>[reply]</td>
-                                        <td><a href="#">Delete</a></td>
+                                        <td><button type="button" (click)="removeComment(comment)" class="btn btn-danger">Delete</button></td>
                                     </tr>
 
                                 </tbody>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { PricesRoutingModule } from './prices-routing.module';
 import { PriceListComponent } from './price-list/price-list.component';
@@ -15,6 +16,7 @@ import { PriceCreateComponent } from './price-create/price-create.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     PricesRoutingModule
   ]
 })

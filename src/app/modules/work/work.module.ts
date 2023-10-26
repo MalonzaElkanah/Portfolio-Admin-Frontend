@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { WorkRoutingModule } from './work-routing.module';
 import { WorkListComponent } from './work-list/work-list.component';
@@ -15,6 +16,7 @@ import { WorkUpdateComponent } from './work-update/work-update.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     WorkRoutingModule
   ]
 })

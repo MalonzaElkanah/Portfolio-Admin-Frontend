@@ -1,0 +1,13 @@
+.table-links{
+	color:#34395e;
+	font-size:12px;
+	margin-top:5px;
+	opacity:0;
+	transition:all 0.3s;
+}
+.table-links a{
+	color:#666;
+}
+table tr:hover .table-links{
+	opacity:1;
+}

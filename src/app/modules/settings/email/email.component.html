@@ -1,0 +1,48 @@
+<section class="section mt-4">
+    <div class="section-body">
+        <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">Email Server Settings</div>
+                <div class="card-body">
+                    <div class="p-3">
+
+                        <!-- Email app Tab -->
+                        <form [formGroup]="settingsForm" (submit)="submitForm()">
+                            <div class="form-group mb-2">
+                                <label>Email</label>
+                                <input type="email" class="form-control" formControlName="email">
+                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of settingsError.email">{{error}}, </span></div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label>Password</label>
+                                <input type="password" class="form-control" formControlName="password">
+                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of settingsError.password">{{error}}, </span></div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label>Port</label>
+                                <input type="text" class="form-control" formControlName="port">
+                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of settingsError.port">{{error}}, </span></div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label>SMTP Server</label>
+                                <input type="text" class="form-control" formControlName="smtp_server">
+                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of settingsError.smtp_server">{{error}}, </span></div>
+                            </div>
+                            <div class="form-group pt-3 mb-2">
+                                <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                            </div>
+
+                        </form>
+                        <!-- /Email app Tab -->
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+</section>

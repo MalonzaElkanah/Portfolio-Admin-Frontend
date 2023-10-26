@@ -1,6 +1,6 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
-        <h2 class="section-title">Work</h2>
+        <h2 class="section-title">Work History</h2>
         <div class="row">
             <div class="col-12">
                 <div class="activities">
@@ -11,151 +11,49 @@
                         </div>
                         <div class="activity-detail">
                             <div class="mb-2">
-                            <a href="#"><i class="fa fa-plus-circle"></i> Add Work</a>
+                            <a routerLink="create" class="text-decoration-none"><i class="fa fa-plus-circle"></i> Add Work</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="activity">
+                    <div class="activity" *ngFor="let work of workList.results">
                         <div class="activity-icon bg-primary text-white">
                             <i class="fas fa-briefcase"></i>
                         </div>
-                        <div class="activity-detail">
-                            <div class="mb-2">
-                                <span class="text-job">Company 1 </span>
-                                <span class="bullet"></span>
-                                <a class="text-job" href="#">Edit</a>
-                                <span class="bullet"></span>
-                                <a class="text-job text-danger" href="#" data-toggle="modal" data-target="#">Delete</a>
+
+                        <div class="activity-detail p-4 fs-6">
+                            <div class="mb-2 font-monospace small">
+                                <span class="text-job strong me-3"> {{work.company}}</span>
+                                <span class="bullet strong">&bull;</span>
+                                <a class="text-decoration-none text-job strong" [routerLink]="['update', slugify(work.position), binarify(work.id ?? 0)]" >EDIT</a>
+                                <span class="bullet">&bull;</span>
+                                <a class="text-job text-danger text-decoration-none strong"  data-toggle="modal" href="javascript:void();" (click)="removeWork(work)">DELETE</a>
                             </div>
                             <div class="profile-widget-description pb-0">
-                                <div class="profile-widget-name">Intern 101 <div class="text-muted d-inline font-weight-normal"> <div class="slash"></div> July 13, 2023 - July 13, 2023</div></div>
-                                <p>
+
+                                <div class="profile-widget-name mb-2  small">
+                                    {{ work.position }} 
+                                    <span class="text-muted d-inline font-weight-normal"> 
+                                        <span class="slash strong"> / </span> 
+                                        {{ work.start_date | date: 'MMMM dd, YYYY' }} - {{ work.end_date | date: 'MMMM dd, YYYY' }}
+                                    </span>
+                                </div>
+                                <p class="mb-2  small">
                                     <i class="fas fa-globe px-2"></i>
-                                    <a href="https://example-website.com/">https://example-website.com/</a>
-                                    <br>
+                                    <a  class="text-decoration-none" href="{{ work.website }}">{{ work.website }}</a>
+                                </p>
+                                <p  class="mb-2  small">
                                     <i class="fas fa-map-marker-alt px-2"></i>
-                                    <a href="#">Nairobi, Kenya</a>
+                                    <a class="text-decoration-none" href="#">{{work.location}}</a>
                                 </p>
                                 <div>
-                                    <ul>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
+                                    <ul class="text-muted mx-2 blockquote-footer">
+                                        <li *ngFor="let highlight of work.highlights" class="lh-lg">{{highlight.name}}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="activity">
-                        <div class="activity-icon bg-primary text-white">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <div class="activity-detail">
-                            <div class="mb-2">
-                                <span class="text-job">Company 1 </span>
-                                <span class="bullet"></span>
-                                <a class="text-job" href="#">Edit</a>
-                                <span class="bullet"></span>
-                                <a class="text-job text-danger" href="#" data-toggle="modal" data-target="#">Delete</a>
-                            </div>
-                            <div class="profile-widget-description pb-0">
-                                <div class="profile-widget-name">Intern 101 <div class="text-muted d-inline font-weight-normal"> <div class="slash"></div> July 13, 2023 - July 13, 2023</div></div>
-                                <p>
-                                    <i class="fas fa-globe px-2"></i>
-                                    <a href="https://example-website.com/">https://example-website.com/</a>
-                                    <br>
-                                    <i class="fas fa-map-marker-alt px-2"></i>
-                                    <a href="#">Nairobi, Kenya</a>
-                                </p>
-                                <div>
-                                    <ul>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity">
-                        <div class="activity-icon bg-primary text-white">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <div class="activity-detail">
-                            <div class="mb-2">
-                                <span class="text-job">Company 1 </span>
-                                <span class="bullet"></span>
-                                <a class="text-job" href="#">Edit</a>
-                                <span class="bullet"></span>
-                                <a class="text-job text-danger" href="#" data-toggle="modal" data-target="#">Delete</a>
-                            </div>
-                            <div class="profile-widget-description pb-0">
-                                <div class="profile-widget-name">Intern 101 <div class="text-muted d-inline font-weight-normal"> <div class="slash"></div> July 13, 2023 - July 13, 2023</div></div>
-                                <p>
-                                    <i class="fas fa-globe px-2"></i>
-                                    <a href="https://example-website.com/">https://example-website.com/</a>
-                                    <br>
-                                    <i class="fas fa-map-marker-alt px-2"></i>
-                                    <a href="#">Nairobi, Kenya</a>
-                                </p>
-                                <div>
-                                    <ul>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity">
-                        <div class="activity-icon bg-primary text-white">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <div class="activity-detail">
-                            <div class="mb-2">
-                                <span class="text-job">Company 1 </span>
-                                <span class="bullet"></span>
-                                <a class="text-job" href="#">Edit</a>
-                                <span class="bullet"></span>
-                                <a class="text-job text-danger" href="#" data-toggle="modal" data-target="#">Delete</a>
-                            </div>
-                            <div class="profile-widget-description pb-0">
-                                <div class="profile-widget-name">Intern 101 <div class="text-muted d-inline font-weight-normal"> <div class="slash"></div> July 13, 2023 - July 13, 2023</div></div>
-                                <p>
-                                    <i class="fas fa-globe px-2"></i>
-                                    <a href="https://example-website.com/">https://example-website.com/</a>
-                                    <br>
-                                    <i class="fas fa-map-marker-alt px-2"></i>
-                                    <a href="#">Nairobi, Kenya</a>
-                                </p>
-                                <div>
-                                    <ul>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                        <li>We have also listed out a few links regarding the project.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
 
                 </div>

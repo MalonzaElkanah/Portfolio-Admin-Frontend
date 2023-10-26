@@ -1,143 +1,55 @@
-<section class="section">
+<section class="section mt-4">
     <div class="section-body">
 
         <div class="row">
+        	<div class="text-center col-12 m-3">
+        		<h4>My Projects</h4>
+        	</div>
             <div class="col-12">
                 <div class="card">
 	                <div class="card-header">
-	                    <h4>My Projects</h4>
-	                    <div class="card-header-action">
-                          	<a href="{% url 'admin-project-add' %}" class="btn btn-primary">
+	                    <div class="btn-toolbar float-end m-2" role="toolbar">
+	                    	<div class="btn-group" role="group">
+                          	<a routerLink="add" class="btn btn-primary">
                                 <i class="fas fa-plus"></i>
                                 Add Project
                              </a>
+                         	</div>
                         </div>
               		</div>
               		<div class="card-body">
-                		<div class="table-responsive">
-                  			<table datatable [dtOptions]="dtOptions" class="table table-striped" id="table-2">
-		                        <thead>
-			                        <tr>
-			                            <th class="text-center">#</th>
-			                            <th>Project Name</th>
-			                            <th>Image</th>
-			                            <th>Technologies</th>
-			                            <th>Date</th>
-			                            <th>Link</th>
-			                            <th>Action</th>
-			                            <th></th>
-			                            <th></th>
-			                        </tr>
-		                        </thead>
-		                        <tbody>
-			                        <tr>
-			                            <td class="text-center">1</td>
-			                            <td>project name</td>
-			                            <td class="align-left">
-			                              	<img alt="image" src="favicon.ico" width="35">
-			                            </td>
-			                            <td>Django, Django Rest Framework, Python,</td>
-			                            <td>March 8, 2022</td>
-			                            <td>
-			                            	<a href="#">follow</a>
-			                            </td>
-			                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-			                            <td><a href="#" class="btn btn-warning">Edit</a></td>
-			                            <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</a></td>
-			                        </tr>
-			                        <tr>
-			                            <td class="text-center">1</td>
-			                            <td>project name</td>
-			                            <td class="align-left">
-			                              	<img alt="image" src="favicon.ico" width="35">
-			                            </td>
-			                            <td>Django, Django Rest Framework, Python,</td>
-			                            <td>March 8, 2022</td>
-			                            <td>
-			                            	<a href="#">follow</a>
-			                            </td>
-			                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-			                            <td><a href="#" class="btn btn-warning">Edit</a></td>
-			                            <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</a></td>
-			                        </tr>
-			                        <tr>
-			                            <td class="text-center">1</td>
-			                            <td>project name</td>
-			                            <td class="align-left">
-			                              	<img alt="image" src="favicon.ico" width="35">
-			                            </td>
-			                            <td>Django, Django Rest Framework, Python,</td>
-			                            <td>March 8, 2022</td>
-			                            <td>
-			                            	<a href="#">follow</a>
-			                            </td>
-			                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-			                            <td><a href="#" class="btn btn-warning">Edit</a></td>
-			                            <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</a></td>
-			                        </tr>
-			                        <tr>
-			                            <td class="text-center">1</td>
-			                            <td>project name</td>
-			                            <td class="align-left">
-			                              	<img alt="image" src="favicon.ico" width="35">
-			                            </td>
-			                            <td>Django, Django Rest Framework, Python,</td>
-			                            <td>March 8, 2022</td>
-			                            <td>
-			                            	<a href="#">follow</a>
-			                            </td>
-			                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-			                            <td><a href="#" class="btn btn-warning">Edit</a></td>
-			                            <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</a></td>
-			                        </tr>
-			                        <tr>
-			                            <td class="text-center">1</td>
-			                            <td>project name</td>
-			                            <td class="align-left">
-			                              	<img alt="image" src="favicon.ico" width="35">
-			                            </td>
-			                            <td>Django, Django Rest Framework, Python,</td>
-			                            <td>March 8, 2022</td>
-			                            <td>
-			                            	<a href="#">follow</a>
-			                            </td>
-			                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-			                            <td><a href="#" class="btn btn-warning">Edit</a></td>
-			                            <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</a></td>
-			                        </tr>
-			                        <tr>
-			                            <td class="text-center">1</td>
-			                            <td>project name</td>
-			                            <td class="align-left">
-			                              	<img alt="image" src="favicon.ico" width="35">
-			                            </td>
-			                            <td>Django, Django Rest Framework, Python,</td>
-			                            <td>March 8, 2022</td>
-			                            <td>
-			                            	<a href="#">follow</a>
-			                            </td>
-			                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-			                            <td><a href="#" class="btn btn-warning">Edit</a></td>
-			                            <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</a></td>
-			                        </tr>
-			                        <tr>
-			                            <td class="text-center">1</td>
-			                            <td>project name</td>
-			                            <td class="align-left">
-			                              	<img alt="image" src="favicon.ico" width="35">
-			                            </td>
-			                            <td>Django, Django Rest Framework, Python,</td>
-			                            <td>March 8, 2022</td>
-			                            <td>
-			                            	<a href="#">follow</a>
-			                            </td>
-			                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-			                            <td><a href="#" class="btn btn-warning">Edit</a></td>
-			                            <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</a></td>
-			                        </tr>
+              			<div class="row m-3">
+	                		<div class="row table-responsive">
+	                  			<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" id="table-2">
+			                        <thead>
+				                        <tr>
+				                            <th class="text-center">#</th>
+				                            <th>Project Name</th>
+				                            <th>Image</th>
+				                            <th>Technologies</th>
+				                            <th>Date</th>
+				                            <th>Action</th>
+				                            <th></th>
+				                        </tr>
+			                        </thead>
+			                        <tbody>
+				                        <tr *ngFor="let project of projects?.results; let i = index">
+				                            <td class="text-center">{{i}}</td>
+				                            <td>
+				                            	<a [routerLink]="['view', slugify(project.name), binarify(project.id ?? 0)]" class="text-decoration-none">{{project?.name}}</a></td>
+				                            <td class="align-left">
+				                              	<img [src]="project.image" class="img-thumbnail align-left" width="45" alt="#image-{{i}}">
+				                            </td>
+				                            <td> <span class="badge bg-primary m-1" *ngFor="let keyword of project?.keywords?.slice(0,7)">{{ keyword?.technology }} </span> </td>
+				                            <td>{{ project?.date | date: 'MMMM dd, YYYY' }}</td>
+				                            
+				                            <td><a [routerLink]="['edit', slugify(project.name), binarify(project.id ?? 0)]" class="btn btn-primary">Edit</a></td>
+				                            <td><button type="button"  (click)="removeProject(project)" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">Delete</button></td>
+				                        </tr>
 
-                    			</tbody>
-                  			</table>
+	                    			</tbody>
+	                  			</table>
+	                		</div>
                 		</div>
               		</div>
            	 	</div>
