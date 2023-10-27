@@ -23,7 +23,7 @@ export class ProjectEditComponent implements OnInit {
   isFailed = false;
   errorMessage = '';
 
-  selectedItems:Array<string> = new Array();
+  selectedItems:Array<any> = new Array();
   projectImage = "";
   imageUpload = "No Image Uploaded";
 
@@ -54,7 +54,7 @@ export class ProjectEditComponent implements OnInit {
       this.projectImage = this.project.image;
 
       for (let keyword of this.project.keywords ?? []) {
-        this.selectedItems.push(keyword?.technology);
+        this.selectedItems.push(keyword);
       }
     });
 

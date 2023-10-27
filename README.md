@@ -1,5 +1,7 @@
 # MyApp
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/84a8d4f2-6fd1-41dc-a6a2-4737f5714729/deploy-status)](https://app.netlify.com/sites/admin-elkanahmalonza/deploys)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
 
 ## Development server
