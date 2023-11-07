@@ -14,6 +14,23 @@ export interface ActivityLog {
 	datetime: Date;
 }
 
+export interface VisitorCount {
+	date: Date;
+  ip_addresses: any[];
+  requests_count: number;
+}
+
+export interface VisitorStat {
+	day: number;
+  week: number;
+	month: number;
+  year: number;
+}
+
 export interface ActivityLogList extends Paginator {
   results: [ActivityLog];
+}
+
+export interface VisitorCountList extends Paginator {
+  results: [VisitorCount];
 }

@@ -1,81 +1,209 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 my-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-        </div>
-        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-        </button>
-    </div>
-</div>
-
-<canvas class="my-4 w-100" id="myChart" width="900"></canvas>
-
-<div class="row">
-    <div class="col-12">
-        <div class="float-start"><h2>Activity Logs</h2></div>
-        <div class="float-end">
-            <form [formGroup]="searchForm" (ngSubmit)="searchLogs(searchInput.value)">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" formControlName="search" #searchInput>
-                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+<!--canvas class="my-4 w-100" id="myChart" width="900"></canvas-->
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 my-3 border-bottom">
+                        <h1 class="h2">Traffic</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <!--div class="btn-group me-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                            </div-->
+                            <!--button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                                <span data-feather="calendar"></span>
+                                This week
+                            </button-->
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
-    </div>
 
-    <div class="col-12">
-        <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">User</th>
-                      <th scope="col">Request URL</th>
-                      <th scope="col">Request Method</th>
-                      <th scope="col">Response Code</th>
-                      <th scope="col">IP Address</th>
-                      <th scope="col">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let log of logs?.results; let i = index">
-                      <td>{{ i }}</td>
-                      <td>{{ log?.user }}</td>
-                      <td>{{ log.request_url }}</td>
-                      <td>{{ log.request_method }}</td>
-                      <td [ngClass]="[getResponseColor(log.response_code)]">{{ log.response_code }} </td>
-                      <td>{{ log?.ip_address }}</td>
-                      <td>{{ log.datetime | date: 'MMMM dd, YYYY' }} </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-12" *ngIf="logs?.count">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <ng-container *ngIf="logs?.previous; else noPrevious">
-                        <a href="#" (click)="pageLogs(logs?.previous)" class="page-link">Previous</a>
-                    </ng-container>
-                    <ng-template #noPrevious>
-                        <a href="#" (click)="pageLogs(logs?.previous)" class="page-link disabled">Previous</a>
-                    </ng-template>
-                </li>
-                <li class="page-item">
-                    <ng-container *ngIf="logs?.next; else noNext">
-                        <a href="#" (click)="pageLogs(logs?.next)" class="page-link">Next</a>
-                    </ng-container>
-                    <ng-template #noNext>
-                        <a href="#" (click)="pageLogs(logs?.next)" class="page-link disabled">Next</a>
-                    </ng-template>
-                </li>
-            </ul>
-        </nav>
+                <div class="row pt-2 text-center">
+                    <h5>Monthly Visitors</h5>
+                </div>
+                <div class="row" id="chart1">
+                    <apx-chart
+                        [series]="monthlyChartOption.series"
+                        [chart]="monthlyChartOption.chart"
+                        [labels]="monthlyChartOption.labels"
+                        [xaxis]="monthlyChartOption.xaxis"
+                        [yaxis]="monthlyChartOption.yaxis"
+                        [plotOptions]="monthlyChartOption.plotOptions"
+                        [stroke]="monthlyChartOption.stroke"
+                        [fill]="monthlyChartOption.fill"
+                        [tooltip]="monthlyChartOption.tooltip"
+                    ></apx-chart>
+                </div>
+                <div class="row py-4">
+                    <hr>
+                </div>
+                <div class="row mb-0">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <div class="row pt-2 text-center">
+                            <h5>Weekly Visitors</h5>
+                        </div>
+                        <div id="chart2">
+                            <apx-chart
+                                [series]="weeklyChartOption.series"
+                                [chart]="weeklyChartOption.chart"
+                                [labels]="weeklyChartOption.labels"
+                                [xaxis]="weeklyChartOption.xaxis"
+                                [yaxis]="weeklyChartOption.yaxis"
+                                [plotOptions]="weeklyChartOption.plotOptions"
+                                [stroke]="weeklyChartOption.stroke"
+                                [fill]="weeklyChartOption.fill"
+                                [tooltip]="weeklyChartOption.tooltip"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="row pt-2">
 
+                            <div class="list-inline text-center pt-2">
+                                <div class="list-inline-item p-r-30">
+                                    <i data-feather="arrow-up-circle" class="col-green"></i>
+                                    <h5 class="mb-0 m-b-0 text-info">{{visitorStat.day}}</h5>
+                                    <p class="text-muted font-14 m-b-0">Last 24hrs Visitors</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="list-inline text-center pt-2">
+                                <div class="list-inline-item p-r-30">
+                                    <i data-feather="arrow-up-circle" class="col-green"></i>
+                                    <h5 class="m-b-0 text-info">{{visitorStat.week}}</h5>
+                                    <p class="text-muted font-14 m-b-0">Last 7days Visitors</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="list-inline text-center pt-2">
+                                <div class="list-inline-item p-r-30">
+                                    <i data-feather="arrow-down-circle" class="col-orange"></i>
+                                    <h5 class="m-b-0 text-info">{{visitorStat.month}}</h5>
+                                    <p class="text-muted font-14 m-b-0">Last 30days Visitors</p>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--hr-->
+                <div class="row py-4">
+                    <hr>
+                </div>
+                <div class="row mb-0">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="row pt-2 text-center">
+                            <h5>Daily Analysis</h5>
+                        </div>
+                        <div id="chart3">
+                            <apx-chart
+                                [series]="dailyChartOption.series"
+                                [chart]="dailyChartOption.chart"
+                                [labels]="dailyChartOption.labels"
+                                [xaxis]="dailyChartOption.xaxis"
+                                [yaxis]="dailyChartOption.yaxis"
+                                [plotOptions]="dailyChartOption.plotOptions"
+                                [stroke]="dailyChartOption.stroke"
+                                [fill]="dailyChartOption.fill"
+                                [tooltip]="dailyChartOption.tooltip"
+                            ></apx-chart>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
+                        <div class="row pt-2 text-center">
+                            <h5>Yearly Analysis</h5>
+                        </div>
+                        <div id="chart4">
+                            <apx-chart
+                                [series]="yearlyChartOption.series"
+                                [chart]="yearlyChartOption.chart"
+                                [labels]="yearlyChartOption.labels"
+                                [xaxis]="yearlyChartOption.xaxis"
+                                [yaxis]="yearlyChartOption.yaxis"
+                                [plotOptions]="yearlyChartOption.plotOptions"
+                                [stroke]="yearlyChartOption.stroke"
+                                [fill]="yearlyChartOption.fill"
+                                [tooltip]="yearlyChartOption.tooltip"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row py-4">
+                    <hr>
+                </div>
+
+                <div class="row py-4">
+                    <div class="col-12">
+                        <div class="float-start"><h2>Activity Logs</h2></div>
+                        <div class="float-end">
+                            <form [formGroup]="searchForm" (ngSubmit)="searchLogs(searchInput.value)">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" formControlName="search" #searchInput>
+                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">User</th>
+                                      <th scope="col">Request URL</th>
+                                      <th scope="col">Request Method</th>
+                                      <th scope="col">Response Code</th>
+                                      <th scope="col">IP Address</th>
+                                      <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let log of logs?.results; let i = index">
+                                      <td>{{ i }}</td>
+                                      <td>{{ log?.user }}</td>
+                                      <td>{{ log.request_url }}</td>
+                                      <td>{{ log.request_method }}</td>
+                                      <td [ngClass]="[getResponseColor(log.response_code)]">{{ log.response_code }} </td>
+                                      <td>{{ log?.ip_address }}</td>
+                                      <td>{{ log.datetime | date: 'MMMM dd, YYYY' }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="logs?.count">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <ng-container *ngIf="logs?.previous; else noPrevious">
+                                        <a href="#" (click)="pageLogs(logs?.previous)" class="page-link">Previous</a>
+                                    </ng-container>
+                                    <ng-template #noPrevious>
+                                        <a href="#" (click)="pageLogs(logs?.previous)" class="page-link disabled">Previous</a>
+                                    </ng-template>
+                                </li>
+                                <li class="page-item">
+                                    <ng-container *ngIf="logs?.next; else noNext">
+                                        <a href="#" (click)="pageLogs(logs?.next)" class="page-link">Next</a>
+                                    </ng-container>
+                                    <ng-template #noNext>
+                                        <a href="#" (click)="pageLogs(logs?.next)" class="page-link disabled">Next</a>
+                                    </ng-template>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+
+  
+            </div>
+        </div>
     </div>
 </div>

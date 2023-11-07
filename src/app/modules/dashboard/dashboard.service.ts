@@ -6,7 +6,10 @@ import { catchError, retry } from 'rxjs/operators';
 
 import { 
     ActivityLog,
-    ActivityLogList
+    ActivityLogList,
+    VisitorCount,
+    VisitorCountList,
+    VisitorStat
 } from './dashboard';
 import { environment } from 'src/environments/environment';
 
@@ -43,7 +46,6 @@ export class DashboardService {
     constructor(private http: HttpClient) { }
 
     getActivityLogs(search?: string, page?: string){
-        console.log("FETCH PAGE: "+page);
         let url = `${endpoint}activity-logs/`;
 
         if (page) {
@@ -61,4 +63,90 @@ export class DashboardService {
             catchError(this.handleError)
         );
     }
+
+    getDailyVisitorCount(search?: string, page?: string){
+        let url = `${endpoint}visitors/daily/`;
+
+        if (page) {
+            url = page;
+        }
+
+        if (search) {
+            if (page) {
+                url = `${url}&?search=${search}`;
+            } else {
+                url = `${url}?search=${search}`;
+            }
+        }
+        return this.http.get<VisitorCountList>(url, httpOptions).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    getWeeklyVisitorCount(search?: string, page?: string){
+        let url = `${endpoint}visitors/weekly/`;
+
+        if (page) {
+            url = page;
+        }
+
+        if (search) {
+            if (page) {
+                url = `${url}&?search=${search}`;
+            } else {
+                url = `${url}?search=${search}`;
+            }
+        }
+        return this.http.get<VisitorCountList>(url, httpOptions).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    getMonthlyVisitorCount(search?: string, page?: string){
+        let url = `${endpoint}visitors/monthly/`;
+
+        if (page) {
+            url = page;
+        }
+
+        if (search) {
+            if (page) {
+                url = `${url}&?search=${search}`;
+            } else {
+                url = `${url}?search=${search}`;
+            }
+        }
+        return this.http.get<VisitorCountList>(url, httpOptions).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    getYearlyVisitorCount(search?: string, page?: string){
+        let url = `${endpoint}visitors/yearly/`;
+
+        if (page) {
+            url = page;
+        }
+
+        if (search) {
+            if (page) {
+                url = `${url}&?search=${search}`;
+            } else {
+                url = `${url}?search=${search}`;
+            }
+        }
+        return this.http.get<VisitorCountList>(url, httpOptions).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    getVisitorStats(){
+        return this.http.get<VisitorStat>(
+            `${endpoint}visitors/stats/`,
+            httpOptions
+        ).pipe(
+            catchError(this.handleError)
+        );
+    }
+
 }
