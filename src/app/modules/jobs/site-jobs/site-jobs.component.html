@@ -1,0 +1,153 @@
+<section class="section mt-4">
+    <div class="section-body">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+              		<div class="card-body">
+              			<div class="row m-3">
+
+              				<div class="row">
+	                            <div class="col-md-8 col-sm-12">
+	                                <div class="row">
+	                                    <div class="col-lg-3 col-sm-12">
+	                                        <img src="assets/img/product-1.png" class="img-thumbnail" alt="#Image">
+	                                    </div>
+	                                    <div class="col-lg-9 col-sm-12">
+	                                        <h1>{{ site.site_name }}</h1>
+	                                        <p class="text-muted h4">
+	                                            <span>{{ site.site_type }} site</span>
+	                                        </p>
+	                                        <p class="text-decoration-none">
+	                                            <i>Link: </i>
+	                                            <a href="{{ site.job_list_link }}" target="_blank" rel="noopener noreferrer"> {{ site.job_list_link }}</a>
+	                                            <br>
+
+	                                            <i>Jobs: </i>
+	                                            <span class="text-primary">{{ site.job_count }} ({{ site.applied_job_count }} Applied)</span>
+	                                            <br>
+
+	                                            <i>Date: </i>
+	                                            <span class="text-primary"> {{ site.date_created | date: 'MMMM dd, YYYY HH:SS' }}</span>
+	                                        </p>
+
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-lg-4 col-sm-12 pt-4">
+
+	                                <ul class="list-group">
+	                                    <li class="list-group-item d-flex justify-content-between">
+	                                        <div class="ms-2 me-auto">
+	                                          <div class="fw-bold">Scrap Site<i class="fas fa-pen text-muted"></i></div>
+	                                          <a class="text-decoration-none" href="javascript:void(0);" (click)="scrapSite()"> Click</a>
+	                                        </div>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                            
+	                        </div>
+	                        <hr>
+	                        <div class="row mx-2 my-3">
+	                            <h4 class="text-center">CSS Selectors / JSON Key</h4>
+
+	                            <div class="row">
+	                            	<div class="col-sm-12 col-md-6">
+
+			                            <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Job Name</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.name_element }}</p>
+		                                </div>
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Organization</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.organization_element }}</p>
+		                                </div>
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Experience</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.experience_element }}</p>
+		                                </div>
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Address</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.address_element }}</p>
+		                                </div>
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Deadline</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.deadline_element }}</p>
+		                                </div>
+
+		                            </div>
+
+	                            	<div class="col-sm-12 col-md-6">
+
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Description</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.description_element }}</p>
+		                                </div>
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Qualification</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.qualification_element }}</p>
+		                                </div>
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Attribute</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.attribute_element }}</p>
+		                                </div>
+		                                <div class="row pt-2">
+		                                    <p class="col-sm-4 col-md-5 col-lg-4 text-muted text-sm-end">Job Link</p>
+		                                    <p class="col-sm-8 col-md-7 col-lg-8">{{ site.job_link_element }}</p>
+		                                </div>
+
+		                            </div>
+		                        </div>
+
+	                        </div>
+	                        <hr>
+
+	                        <div class="row mt-2 my-3">
+	                            <h4 class="text-center">{{ site.site_name }} Jobs</h4>
+	                        
+		                		<div class="row table-responsive">
+		                  			<table class="table table-striped" id="table-2">
+				                        <thead>
+					                        <tr>
+					                            <th class="text-center">#</th>
+					                            <th>Name</th>
+					                            <th>Organization </th>
+					                            <th>Experience</th>
+					                            <th>Deadline</th>
+					                            <th>Date Scraped</th>
+					                            <th>Status</th>
+					                            <th>Action</th>
+					                            <th></th>
+					                        </tr>
+				                        </thead>
+				                        <tbody>
+					                        <tr *ngFor="let job of jobs; let i = index">
+					                            <td class="text-center">{{i + 1}}</td>
+					                            <td>
+					                            	<a href="javascript:void();" class="text-decoration-none">{{ job.name }}</a></td>
+					                            <td> {{ job.organization }} </td>
+					                            <td> {{ job.experience }}</td>
+					                            <td> {{ job.deadline }}</td>
+					                            <td>{{ job.date_created | date: 'MMMM dd, YYYY' }}</td>
+					                            <td> {{ job.status }}</td>
+					                            
+					                            <td>
+					                            	<a [routerLink]="['/job/sites/job', slugify(job.name), binarify(job.id ?? 0)]" class="btn btn-primary">View</a>
+					                            </td>
+					                            <td>
+					                            	<button type="button" (click)="removeJob(job)" class="btn btn-danger">Delete</button>
+					                            </td>
+					                        </tr>
+
+		                    			</tbody>
+		                  			</table>
+		                		</div>
+
+	                		</div>
+                		</div>
+              		</div>
+           	 	</div>
+          	</div>
+        </div>
+    </div>
+</section>

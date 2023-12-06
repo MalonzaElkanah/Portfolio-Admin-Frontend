@@ -64,6 +64,12 @@ const routes: Routes = [
     data: { breadcrumb: 'blog'},
     loadChildren: () =>
       import('./blog/blog.module').then((m) => m.BlogModule), canActivate: [AuthGuard]
+  },
+  {
+    path: 'job',
+    data: { breadcrumb: 'jobs'},
+    loadChildren: () =>
+      import('./jobs/jobs.module').then((m) => m.JobsModule), canActivate: [AuthGuard]
   }
 ];
 

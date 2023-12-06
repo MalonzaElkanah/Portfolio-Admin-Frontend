@@ -1,0 +1,29 @@
+<section class="section">
+    <div class="section-body">
+        <div class="row pt-4">
+          	<div class="col-12">
+                <div class="card">
+                  	<div class="card-body">
+
+					    <div class="row text-center">
+					        <h3>Letter: {{letter.name}}</h3>
+					    </div>
+
+                  		<div class="row py-4">
+                  			<div class="col-12" [innerHTML]="letter.text">
+                  			</div>
+                  		</div>
+
+                  		<div class="row">
+					        <div class="col-12">
+					            <a href="javascript:void();" (click)="copyLetterText()" class="btn btn-primary mx-2" title="Copy to Clipboard">Copy Text</a>
+					            <a href="javascript:void();" (click)="printPreview()" class="btn btn-primary mx-2">Print Letter</a>
+					            <iframe srcdoc="{{letter.text}}" style="display: none;" #iframe></iframe>
+					        </div>
+					    </div>
+                  	</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

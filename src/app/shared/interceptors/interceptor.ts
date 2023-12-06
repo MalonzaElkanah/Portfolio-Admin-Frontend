@@ -97,20 +97,19 @@ export class Interceptor implements HttpInterceptor {
             
             if (
               error.error.detail ===
-              'Authentication credentials were not provided.'
+              'Given token not valid for any token type'
             ) {
               let params = {
-                token: tokenItems.token,
-                refresh_token: tokenItems.tokenRefresh,
+                // token: tokenItems.token,
+                refresh: tokenItems.tokenRefresh
               };
 
-              this._authService
-                .refreshToken(params)
-                .pipe(take(1))
-                .subscribe(() => {
+              this._authService.refreshToken(params).pipe(take(1)).subscribe(
+                () => {
                   const token = JSON.parse(
                     this._storageService.getItem('token') || '{}'
                   ).token;
+                    console.log("check---point:.......1")
                   if (token !== null || token !== '{}') {
                     request = request.clone({
                       setHeaders: {
@@ -119,17 +118,27 @@ export class Interceptor implements HttpInterceptor {
                         Authorization: `Bearer ${token}`,
                       },
                     });
+                    console.log("check---point:.......2")
+
                     return next.handle(request).pipe(
+                      // console.log("check---point:.......3")
                       catchError(err => {
-                        console.error('Refresh Token Issue', err);
+                        if (err.status == 401) {
+                          console.error('Refresh Token Issue', err);
+                          this._authService.signOut();
+                        }
+
                         return throwError(err);
                       })
                     );
                   } else {
+                    this._authService.signOut();
                     return next.handle(request);
                   } 
-                });
+                }
+              );
             } else {
+              // Authentication credentials were not provided.
               //logout from account
               this._route.navigate(['/sign-in']);
             }

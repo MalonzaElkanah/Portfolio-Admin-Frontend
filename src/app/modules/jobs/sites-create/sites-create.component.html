@@ -1,0 +1,103 @@
+<section class="section mt-4">
+    <div class="section-body">
+
+    <!-- Add Site Form Body  -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center"><h4>New Job-Site</h4></div>
+                    <div class="card-body">
+
+                        <form class="my-3 mx-2" [formGroup]="siteForm" (submit)="submitSiteForm()">
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Site Name</label>
+                                    <input type="text" class="form-control" formControlName="site_name" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.site_name">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Site Type</label>
+                                    <select class="form-control" formControlName="site_type" required>
+                                    	<option value="static">Static</option>
+                                    	<option value="dynamic">Dynamic</option>
+                                    	<option value="api_endpoints">APIs</option>
+                                    </select>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.site_type">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Jobs Url</label>
+                                    <input type="text" class="form-control" formControlName="job_list_link" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.job_list_link">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>CSS Selector / Key(apis)</label>
+                                    <input type="text" class="form-control" formControlName="job_link_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.job_link_element">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Job Name Selector</label>
+                                    <input type="text" class="form-control" formControlName="name_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.name_element">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Experience Selector</label>
+                                    <input type="text" class="form-control" formControlName="experience_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.experience_element">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Description Selector</label>
+                                    <input type="text" class="form-control" formControlName="description_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.description_element">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Organization Selector</label>
+                                    <input type="text" class="form-control" formControlName="organization_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.organization_element">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Address Selector</label>
+                                    <input type="text" class="form-control" formControlName="address_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.address_element">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Deadline Selector</label>
+                                    <input type="text" class="form-control" formControlName="deadline_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.deadline_element">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Qualification Selector</label>
+                                    <input type="text" class="form-control" formControlName="qualification_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.qualification_element">{{error}}, </span></div>
+                                </div>
+                                <div class="form-group col-md-6 my-2">
+                                    <label>Attribute Selector</label>
+                                    <input type="text" class="form-control" formControlName="attribute_element" required>
+                                    <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of siteError.attribute_element">{{error}}, </span></div>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col">
+                                <button type="submit" class="btn btn-primary">Add Site</button>
+                                </div>
+                            </div>
+
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /Add Site Form Body  -->
+    </div>
+</section>

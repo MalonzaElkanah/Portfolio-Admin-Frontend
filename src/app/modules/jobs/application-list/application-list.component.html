@@ -1,0 +1,54 @@
+<section class="section mt-4">
+    <div class="section-body">
+
+        <div class="row">
+        	<div class="text-center col-12 m-3">
+        		<h4>Job Applications</h4>
+        	</div>
+            <div class="col-12">
+                <div class="card">
+              		<div class="card-body">
+              			<div class="row m-3">
+	                		<div class="row table-responsive">
+	                  			<table class="table table-striped" id="table-2">
+			                        <thead>
+				                        <tr>
+				                            <th class="text-center">#</th>
+				                            <th>Job</th>
+				                            <th>CV</th>
+				                            <th>Letter</th>
+				                            <th>Date</th>
+				                            <th>Action</th>
+				                            <th></th>
+				                        </tr>
+			                        </thead>
+			                        <tbody>
+				                        <tr *ngFor="let item of applications; let i = index">
+				                            <td class="text-center">{{i+1}}</td>
+				                            <td>
+				                            	<a [routerLink]="['/job/sites/job', slugify(item.job?.name ?? 'none'), binarify(item.job?.id ?? 0)]" class="text-decoration-none">{{ item.job?.name }}</a></td>
+				                            <td> <a href="{{ item.cv }}" class="text-decoration-none">{{ item.cv }}</a> </td>
+				                            <td>
+				                            	<a [routerLink]="['/job/letters/detail', slugify(item.letter?.name ?? 'none'), binarify(item.letter?.id ?? 0)]" class="text-decoration-none">{{ item.letter?.name }}</a>
+				                            </td>
+				                            <td>{{ item.date_created | date: 'MMMM dd, YYYY' }}</td>
+				                            
+				                            <td>
+				                            	<a href="#" class="btn btn-primary">Edit</a>
+				                            </td>
+				                            <td>
+				                            	<button type="button" (click)="removeApplication(item)" class="btn btn-danger">Delete</button>
+				                            </td>
+				                        </tr>
+
+	                    			</tbody>
+	                  			</table>
+	                		</div>
+                		</div>
+              		</div>
+           	 	</div>
+          	</div>
+        </div>
+    </div>
+</section>
+

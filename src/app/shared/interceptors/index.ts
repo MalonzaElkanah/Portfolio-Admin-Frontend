@@ -6,6 +6,6 @@ import { LoaderInterceptor } from './loader.interceptor';
 
 /** Http interceptor providers in outside-in order */
 export const httpInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+  { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
 ];

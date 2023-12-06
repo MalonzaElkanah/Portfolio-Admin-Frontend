@@ -16,14 +16,11 @@ import { ServicesModule } from './services/services.module';
 import { SettingsModule } from './settings/settings.module';
 import { SkillsModule } from './skills/skills.module';
 import { WorkModule } from './work/work.module';
-
-// import { ProfileComponent } from './profile/profile.component';
+import { JobsModule } from './jobs/jobs.module';
 
 
 @NgModule({
-  declarations: [
-    // ProfileComponent
-  ],
+  declarations: [],
   imports: [
     DataTablesModule,
     CommonModule,
@@ -38,7 +35,8 @@ import { WorkModule } from './work/work.module';
     SettingsModule,
     SkillsModule,
     WorkModule,
-    ModulesRoutingModule
+    ModulesRoutingModule,
+    JobsModule
   ]
 })
 export class ModulesModule { }

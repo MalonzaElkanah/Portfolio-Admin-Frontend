@@ -1,0 +1,43 @@
+<section class="section mt-4">
+    <div class="section-body">
+
+    <!-- Edit Letter Form Body  -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center"><h4>Update Letter Template</h4></div>
+                    <div class="card-body">
+
+                        <form class="my-3 mx-2" [formGroup]="letterForm" (submit)="submitLetterForm()">
+                            
+                            <div class="form-group row mb-4">
+	                            <label class="col-form-label text-md-end col-12 col-md-3 col-lg-3">Name</label>
+	                            <div class="col-sm-12 col-md-7">
+	                                <input type="text" class="form-control" formControlName="name">
+	                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of letterError.name">{{error}}, </span></div>
+	                            </div>
+	                        </div>
+
+	                        <div class="form-group row mb-4">
+	                            <label class="col-form-label text-md-end col-12 col-md-3 col-lg-3">Content</label>
+	                            <div class="col-sm-12 col-md-7">
+	                                <textarea [ngxSummernote]="config" class="form-control" formControlName="text" required=""></textarea>
+	                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of letterError.text">{{error}}, </span></div>
+	                            </div>
+	                        </div>
+
+                            <div class="row my-2">
+                                <div class="col">
+                                <button type="submit" class="btn btn-primary">Update letter</button>
+                                </div>
+                            </div>
+
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /Edit Letter Form Body  -->
+    </div>
+</section>

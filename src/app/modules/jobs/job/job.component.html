@@ -1,0 +1,161 @@
+<section class="section mt-4">
+    <div class="section-body">
+        <div class="row">
+
+        	<div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="card-title text-center pb-4">Job Details</h3>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Job Name</p>
+                                    <p class="col-sm-10">{{job.name}}</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Organization</p>
+                                    <p class="col-sm-10">{{job.organization}}</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Experience</p>
+                                    <p class="col-sm-10">{{job.experience}}</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0">Address</p>
+                                    <p class="col-sm-10 mb-0">{{job.address}}.</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0">Link</p>
+                                    <p class="col-sm-10 mb-0"><a href="{{job.link}}">{{job.link}}</a> </p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0">Status</p>
+                                    <p class="col-sm-10 mb-0">{{job.status}}.</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Deadline</p>
+                                    <p class="col-sm-10">{{job.deadline}}</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Date Created</p>
+                                    <p class="col-sm-10">{{job.date_created | date: 'MMMM dd, YYYY HH:SS'}}</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0">Description</p>
+                                    <p class="col-sm-10 mb-0">{{job.description}}.</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0"></p>
+                                    <div class="col-sm-10 mb-0">
+                                    	<div class="table-responsive">
+			                                <table class="table table-striped">
+			                                    <thead>
+			                                        <tr>
+			                                            <th>Qualifications</th>
+			                                        </tr>
+			                                    </thead>
+			                                    <tbody>
+			                                        <tr *ngFor="let qualification of job.qualifications; let i = index">
+			                                            <td>{{i+1}}. {{qualification.name}}</td>
+			                                        </tr>
+			                                    </tbody>
+			                                </table>
+			                            </div>
+                                    </div>
+                                </div>
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-end mb-0"></p>
+                                    <div class="col-sm-10 mb-0">
+                                    	<div class="table-responsive">
+			                                <table class="table table-striped">
+			                                    <thead>
+			                                        <tr>
+			                                            <th>Attribute</th>
+			                                        </tr>
+			                                    </thead>
+			                                    <tbody>
+			                                        <tr *ngFor="let attribute of job.attributes; let i = index">
+			                                            <td>{{i+1}}. {{attribute.name}}</td>
+			                                        </tr>
+			                                    </tbody>
+			                                </table>
+			                            </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                
+                                <h4 class="card-title text-center pt-5">Job Application</h4>
+                                <form class="my-3 mx-2" [formGroup]="applicationForm" (submit)="submitApplicationForm()">
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Cover/Email Letter </p>
+                                    <div class="col-sm-10">
+                                        <div class="form-group row">
+                                            <div class="col-sm-12" *ngIf="applications.length === 0">
+                                                <select class="form-control" formControlName="letter" (change)="pickLetter($event)">
+                                                    <option value="">Pick Letter Template</option>
+
+                                                    <option *ngFor="let letter of letters.results" value="{{ letter.id }}">{{letter.name}}</option>
+                                                </select>
+                                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of applicationError.letter">{{error}}, </span></div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <textarea #coverLetter [ngxSummernote]="config" class="form-control" formControlName="cover_letter" (keyup.enter)="updateIframe(coverLetter.value)" (blur)="updateIframe(coverLetter.value)" required=""></textarea>
+                                                <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of applicationError.cover_letter">{{error}}, </span></div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 mb-4">
+                                            <div class="col-12">
+                                                <a href="javascript:void(0);" (click)="copyLetterText()" class="btn btn-primary mx-2" title="Copy to Clipboard">Copy Text</a>
+                                                <a href="javascript:void(0);" (click)="printPreview()" class="btn btn-primary mx-2">Print Letter</a>
+                                                <iframe srcdoc="{{ letterText }}" style="display: none;" #iframe></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Application Type </p>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" formControlName="application_type" required="">
+                                            <option value="on_site">On Site</option>
+                                            <option value="email">Email</option>
+                                            <option value="referral">Referral</option>
+                                            <option value="post_office">Post Office</option>
+                                            <option value="others">Others</option>
+                                        </select>
+                                        <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of applicationError.application_type">{{error}}, </span></div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4" *ngIf="applications.length > 0">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Feedback Type </p>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" formControlName="feedback_type" required="">
+                                            <option value="">Choose</option>
+                                            <option value="no_feedback">No Feedback</option>
+                                            <option value="project">Project Stage</option>
+                                            <option value="phone_interview">Phone Interview</option>
+                                            <option value="technical_interview">Technical Interview</option>
+                                            <option value="face_to_face_interview">Face to Face Interview</option>
+                                        </select>
+                                        <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of applicationError.feedback_type">{{error}}, </span></div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3"> </p>
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                                </form>
+
+                            </div>
+                        </div>
+                	</div>
+            	</div>
+        	</div>
+
+        </div>
+    </div>
+</section>
