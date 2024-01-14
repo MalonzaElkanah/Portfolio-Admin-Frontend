@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormRecord, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+
+declare var $: any; // import * as $ from 'jquery';
 
 import { ProjectService } from '../project.service';
 import { Project, ProjectError, ImageUploadResponse } from '../project';
@@ -12,11 +14,9 @@ import { environment } from 'src/environments/environment';
   templateUrl: './project-add.component.html',
   styleUrls: ['./project-add.component.css']
 })
-export class ProjectAddComponent implements OnInit {
-
-  config = {
-    uploadImagePath: environment.APIEndpoint+'upload-image/' // API URL to upload image
-  }
+export class ProjectAddComponent implements OnInit, AfterViewInit {
+  $summernote!:any;
+  config!: any;
 
   isSuccessful = false;
   isFailed = false;
@@ -59,7 +59,50 @@ export class ProjectAddComponent implements OnInit {
     private _router: Router
   ) { }
 
-  ngOnInit(){ }
+  ngOnInit(){
+    this.config = {
+      uploadImagePath: environment.APIEndpoint+'upload-image/', // API URL to upload image
+      callbacks: {
+        onImageLinkInsert: (url: string) => {
+          // url is the image url from the dialog
+          let img = document.createElement('img');
+          img.src = url;
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+        },
+        onImageUpload: (file: any) => {
+          console.log('File Uploaded');
+          console.log(file);
+
+          let img = file[0]; //document.createElement('img');
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+        },
+        onImageUploadError: (file: any) => {
+          console.log(file);
+          let img = file[0];
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+
+          console.log("Upload Image Failed.");
+          // alert("Upload Image Failed.");
+        }
+      }
+    }
+  }
+
+  ngAfterViewInit(){
+    setTimeout(
+      () => {
+        this.$summernote = $("#summernote");
+        console.log(this.$summernote);
+      }, 
+      10000
+    );
+  }
 
   addTagFn(technology: string) {
     return { technology: technology };

@@ -64,7 +64,7 @@
                             <div class="row">
                                 <div class="form-group col-md-12  my-2">
                                     <label>Description</label>
-                                    <textarea [ngxSummernote]="config" class="form-control" formControlName="description"> </textarea>
+                                    <textarea [ngxSummernote]="config" id="summernote" class="form-control" formControlName="description"> </textarea>
                                     <div *ngIf="isFailed" class="form-text text-danger"><span *ngFor="let error of projectError.description">{{error}} </span></div>
                                 </div>
                             </div>

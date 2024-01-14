@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormRecord, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+
+declare var $: any; // import * as $ from 'jquery';
 
 import {
   Article,
@@ -19,7 +21,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './article-create.component.html',
   styleUrls: ['./article-create.component.css']
 })
-export class ArticleCreateComponent implements OnInit {
+export class ArticleCreateComponent implements OnInit, AfterViewInit {
   isSuccessful = false;
   isFailed = false;
   errorMessage = '';
@@ -34,9 +36,8 @@ export class ArticleCreateComponent implements OnInit {
   articleImage = "";
   imageUpload = "No Image Uploaded";
 
-  config = {
-    uploadImagePath: environment.APIEndpoint+'upload-image/' // API URL to upload image
-  }
+  $summernote!:any;
+  config!: any;
 
   articleForm: FormRecord =  new FormRecord({
     image: new FormControl('', [Validators.required]),
@@ -62,9 +63,64 @@ export class ArticleCreateComponent implements OnInit {
   constructor(
     private _blogService: BlogService,
     private _router: Router
-  ) { }
+  ) {  }
 
   ngOnInit(){
+    this.config = {
+      uploadImagePath: environment.APIEndpoint+'upload-image/', // API URL to upload image
+      callbacks: {
+        onImageLinkInsert: (url: string) => {
+          // url is the image url from the dialog
+          let img = document.createElement('img');
+          img.src = url;
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+        },
+        onImageUpload: (file: any) => {
+          console.log('File Uploaded');
+          console.log(file);
+
+          let img = file[0]; //document.createElement('img');
+          // img.src = file; // data.path;
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+          /*if (file) {
+            let fileName = file?.name;
+            let formData = new FormData();
+
+            formData.append("image", file);
+
+            this._blogService.uploadImage(formData).subscribe(
+              (data: ImageUploadResponse) => {
+                // this.articleImage = data.path;
+                let img = document.createElement('img');
+                img.src = data.path;
+                img.className = "img-fluid";
+                console.log(img);
+                this.$summernote?.summernote('insertNode', img);
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            );
+          } **/
+
+        },
+        onImageUploadError: (file: any) => {
+          console.log(file);
+          let img = file[0];
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+
+          console.log("Upload Image Failed.");
+          // alert("Upload Image Failed.");
+        }
+      }
+    }
+
     this._blogService.getSeriesList().subscribe((series: SeriesList)=> {
       this.seriesList = series;
     });
@@ -73,12 +129,33 @@ export class ArticleCreateComponent implements OnInit {
       this.categoryList = categories;
     });
 
+    // this.$summernote = $("#summernote");
+    // console.log(this.$summernote);
+
+    /*$("ngxSummernote").on('summernote.image.link.insert', function(we, url){
+      // url is the image url from the dialog
+      let $img = $('<img>').attr({ src: url });
+      console.log("url is the image url from the dialog");
+      // $summernote = $("ngxSummernote");
+      // $summernote.summernote('insertNode', $img[0]);
+    });*/
+
+  }
+
+  ngAfterViewInit(){
+    setTimeout(
+      () => {
+        this.$summernote = $("#summernote");
+        console.log(this.$summernote);
+      }, 
+      10000
+    );
   }
 
   addSeries(name: string) {
     let series: Series = { name: name };
 
-    this._blogService.createSeries(series).subscribe((series: Series) => {
+    /*this._blogService.createSeries(series).subscribe((series: Series) => {
       // this._blogService.getSeriesList().subscribe((series: SeriesList)=> {
       //   this.seriesList = series;
       // });
@@ -95,13 +172,14 @@ export class ArticleCreateComponent implements OnInit {
       alert("Creating Series Failed");
 
       return null;
-    })
+    })*/
+    return series;
   }
 
   addCategory(name: string) {
     let category: Category = { name: name };
 
-    this._blogService.createCategory(category).subscribe((category: Category) => {
+    /*this._blogService.createCategory(category).subscribe((category: Category) => {
       // this._blogService.getCategoryList().subscribe((categories: CategoryList)=> {
       //   this.categoryList = categories;
       // });
@@ -118,7 +196,8 @@ export class ArticleCreateComponent implements OnInit {
       alert("Creating category Failed");
 
       return null;
-    })
+    })*/
+    return category;
   }
 
   addTagFn(name: string) {
@@ -167,11 +246,11 @@ export class ArticleCreateComponent implements OnInit {
       category: this.articleForm.value["category"],
       series: this.articleForm.value["series"],
       content: this.articleForm.value["content"],
-      tags: this.articleForm.value["tags"],
+      tags: this.articleForm.value["tags"].join(","),
       status: this.articleForm.value["status"]
     }
     console.log(article);
-    /*
+
     this._blogService.createArticle(article).subscribe((article: Article) => {
       alert("Article Added");
       
@@ -192,9 +271,8 @@ export class ArticleCreateComponent implements OnInit {
       this.isFailed = true;
       this.isSuccessful = false;
       alert("Creating Post Failed");
-    })
+    });
 
-    */
   }
 
 }

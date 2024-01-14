@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormGroup, FormRecord, FormControl, Validators } from "@angular/forms";
+
+declare var $: any; // import * as $ from 'jquery';
 
 import { ProjectService } from '../project.service';
 import { Project, ProjectError, ImageUploadResponse } from '../project';
@@ -12,12 +14,11 @@ import { environment } from 'src/environments/environment';
   templateUrl: './project-edit.component.html',
   styleUrls: ['./project-edit.component.css']
 })
-export class ProjectEditComponent implements OnInit {
+export class ProjectEditComponent implements OnInit, AfterViewInit {
   project!: Project;
   
-  config = {
-    uploadImagePath: environment.APIEndpoint+'upload-image/' // API URL to upload image
-  }
+  $summernote!:any;
+  config!: any;
 
   isSuccessful = false;
   isFailed = false;
@@ -61,6 +62,37 @@ export class ProjectEditComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.config = {
+      uploadImagePath: environment.APIEndpoint+'upload-image/', // API URL to upload image
+      callbacks: {
+        onImageLinkInsert: (url: string) => {
+          // url is the image url from the dialog
+          let img = document.createElement('img');
+          img.src = url;
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+        },
+        onImageUpload: (file: any) => {
+          console.log('File Uploaded');
+          console.log(file);
+
+          let img = file[0];
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+        },
+        onImageUploadError: (file: any) => {
+          console.log("Upload Image Failed.");
+          console.log(file);
+
+          let img = file[0];
+          img.className = "img-fluid";
+          console.log(img);
+          this.$summernote?.summernote('insertNode', img);
+        }
+      }
+    }
 
     this.projectForm =  new FormRecord({
       image: new FormControl(this.project.image),
@@ -72,6 +104,16 @@ export class ProjectEditComponent implements OnInit {
       keywords: new FormControl(this.project?.keywords)
     });
     // this.addTagFn("dummy");
+  }
+
+  ngAfterViewInit(){
+    setTimeout(
+      () => {
+        this.$summernote = $("#summernote");
+        console.log(this.$summernote);
+      }, 
+      10000
+    );
   }
 
   addTagFn(technology: string) {
