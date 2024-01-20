@@ -77,11 +77,11 @@ export class ArticleCreateComponent implements OnInit, AfterViewInit {
           console.log(img);
           this.$summernote?.summernote('insertNode', img);
         },
-        onImageUpload: (file: any) => {
+        onImageUpload: (files: any) => {
           console.log('File Uploaded');
-          console.log(file);
+          console.log(files);
 
-          let img = file[0]; //document.createElement('img');
+          let img = files[0]; //document.createElement('img');
           // img.src = file; // data.path;
           img.className = "img-fluid";
           console.log(img);

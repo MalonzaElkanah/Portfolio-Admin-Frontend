@@ -105,6 +105,8 @@ export class AuthService {
 
         //localStorage.setItem('token', JSON.stringify(tokenItems));
         this._storageService.setItem('token', JSON.stringify(tokenItems));
+
+        window.document.location.reload();
       })
     );
   }

@@ -31,35 +31,38 @@ export class Interceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const tokenItems = JSON.parse(this._storageService.getItem('token') || '{}') || null;
     const token = tokenItems !== null || tokenItems !== '{}' ? tokenItems.token : null;
+
+    if (request.url.startsWith(endpoint)) {
     
-    console.log("Intercepiting...", token);
+      console.log("Intercepiting...", token);
 
-    if (token !== null && typeof token !== 'object') {
-      let contentType = 'application/json';
+      if (token !== null && typeof token !== 'object') {
+        let contentType = 'application/json';
 
-      if (request.body instanceof FormData) {
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        if (request.body instanceof FormData) {
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        } else {
+          request = request.clone({
+            setHeaders: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        }
+
       } else {
         request = request.clone({
           setHeaders: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
           },
         });
       }
-
-    } else {
-      request = request.clone({
-        setHeaders: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
     }
 
     return next.handle(request).pipe(
@@ -83,91 +86,95 @@ export class Interceptor implements HttpInterceptor {
             errorMessage = errorGroup.toString();
           }
         }
+
+        if (request.url.startsWith(endpoint)) {
         
-        let errorStatus: any;
-        let errorStatusText: string;
+          let errorStatus: any;
+          let errorStatusText: string;
 
-        switch (error.status) {
-          case 400:
-            return next.handle(request)
-          case 401:
-            errorStatus = error.status;
-            errorStatusText = 'Oops! You are unauthorized to view this page';
-            console.log('REFRESH TOKEN ERROR:', error);
-            
-            if (
-              error.error.detail ===
-              'Given token not valid for any token type'
-            ) {
-              let params = {
-                // token: tokenItems.token,
-                refresh: tokenItems.tokenRefresh
-              };
+          switch (error.status) {
+            case 400:
+              return next.handle(request)
+            case 401:
+              errorStatus = error.status;
+              errorStatusText = 'Oops! You are unauthorized to view this page';
+              console.log('REFRESH TOKEN ERROR:', error);
+              
+              if (
+                error.error.detail ===
+                'Given token not valid for any token type'
+              ) {
+                let params = {
+                  // token: tokenItems.token,
+                  refresh: tokenItems.tokenRefresh
+                };
 
-              this._authService.refreshToken(params).pipe(take(1)).subscribe(
-                () => {
-                  const token = JSON.parse(
-                    this._storageService.getItem('token') || '{}'
-                  ).token;
-                    console.log("check---point:.......1")
-                  if (token !== null || token !== '{}') {
-                    request = request.clone({
-                      setHeaders: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json',
-                        Authorization: `Bearer ${token}`,
-                      },
-                    });
-                    console.log("check---point:.......2")
+                this._authService.refreshToken(params).pipe(take(1)).subscribe(
+                  () => {
+                    const token = JSON.parse(
+                      this._storageService.getItem('token') || '{}'
+                    ).token;
+                      console.log("check---point:.......1")
+                    if (token !== null || token !== '{}') {
+                      request = request.clone({
+                        setHeaders: {
+                          'Content-Type': 'application/json',
+                          Accept: 'application/json',
+                          Authorization: `Bearer ${token}`,
+                        },
+                      });
+                      console.log("check---point:.......2")
 
-                    return next.handle(request).pipe(
-                      // console.log("check---point:.......3")
-                      catchError(err => {
-                        if (err.status == 401) {
-                          console.error('Refresh Token Issue', err);
-                          this._authService.signOut();
-                        }
+                      return next.handle(request).pipe(
+                        // console.log("check---point:.......3")
+                        catchError(err => {
+                          if (err.status == 401) {
+                            console.error('Refresh Token Issue', err);
+                            this._authService.signOut();
+                          }
 
-                        return throwError(err);
-                      })
-                    );
-                  } else {
-                    this._authService.signOut();
-                    return next.handle(request);
-                  } 
-                }
-              );
-            } else {
-              // Authentication credentials were not provided.
-              //logout from account
-              this._route.navigate(['/sign-in']);
-            }
-            break;
-          case 403:
-            errorStatus = error.status;
-            errorStatusText = 'Oops! You are unauthorized to view this page';
-            this._errorService.addErrors([errorStatusText]);
-            break;
-          // case 403:
-          //     errorStatus = error.status;
-          //     errorStatusText = 'Oops! Media format of the requested data is unsupported';
-
-          //     break;
-          case 500:
-            if (/DoesNotExist|\/auth\/token/.test(error.error) ) {
+                          return throwError(err);
+                        })
+                      );
+                    } else {
+                      this._authService.signOut();
+                      return next.handle(request);
+                    } 
+                  }
+                );
+              } else {
+                // Authentication credentials were not provided.
+                //logout from account
                 this._route.navigate(['/sign-in']);
-            }
+              }
+              break;
+            case 403:
+              errorStatus = error.status;
+              errorStatusText = 'Oops! You are unauthorized to view this page';
+              this._errorService.addErrors([errorStatusText]);
+              break;
+            // case 403:
+            //     errorStatus = error.status;
+            //     errorStatusText = 'Oops! Media format of the requested data is unsupported';
 
-            errorStatus = error.status;
-            errorStatusText =
-              'Oops! You caught us doing some house keeping. Please come back in a few. Sorry for any inconvenience';
-            this._errorService.addErrors([errorStatusText]);
-            break;
-          default:
-            errorStatus = 400;
-            errorStatusText = `Oops! Seems this page was not found`;
-            this._errorService.addErrors([errorStatusText]);
-            break;
+            //     break;
+            case 500:
+              if (/DoesNotExist|\/auth\/token/.test(error.error) ) {
+                  this._route.navigate(['/sign-in']);
+              }
+
+              errorStatus = error.status;
+              errorStatusText =
+                'Oops! You caught us doing some house keeping. Please come back in a few. Sorry for any inconvenience';
+              this._errorService.addErrors([errorStatusText]);
+              break;
+            default:
+              errorStatus = 400;
+              errorStatusText = `Oops! Seems this page was not found`;
+              this._errorService.addErrors([errorStatusText]);
+              break;
+          }
+          return throwError(errorMessage);
         }
 
         return throwError(errorMessage);
